@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('all')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const filters = ['all', 'residential', 'commercial', 'interior', 'luxury']
 
@@ -81,9 +82,14 @@ export default function Portfolio() {
     : projects.filter(p => p.category === activeFilter)
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0A0A0A', fontFamily: 'system-ui, sans-serif' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#0A0A0A', 
+      fontFamily: 'system-ui, sans-serif',
+      overflowX: 'hidden' 
+    }}>
       
-      {/* FLOATING NAVBAR */}
+      {/* FLOATING NAVBAR - Mobile Responsive */}
       <nav style={{
         position: 'fixed',
         top: '20px',
@@ -99,7 +105,8 @@ export default function Portfolio() {
         padding: '15px 30px'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Logo */}
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
               width: '45px',
               height: '45px',
@@ -113,14 +120,13 @@ export default function Portfolio() {
               <span style={{ color: '#0A0A0A', fontWeight: 'bold', fontSize: '24px' }}>I</span>
             </div>
             <div>
-              <Link href="/" style={{ textDecoration: 'none' }}>
-                <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
-                <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
-              </Link>
+              <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
+              <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
             </div>
-          </div>
+          </Link>
 
-          <div style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
+          {/* Desktop Menu */}
+          <div className="desktop-menu" style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
             <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>HOME</Link>
             <Link href="/about" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>ABOUT</Link>
             <Link href="/services" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>SERVICES</Link>
@@ -128,7 +134,8 @@ export default function Portfolio() {
             <Link href="/blog" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>BLOG</Link>
           </div>
 
-          <Link href="/contact">
+          {/* Desktop CTA */}
+          <Link href="/contact" className="desktop-cta">
             <button style={{
               padding: '12px 25px',
               background: 'linear-gradient(135deg, #FFD700, #FFA500)',
@@ -144,7 +151,91 @@ export default function Portfolio() {
               START PROJECT →
             </button>
           </Link>
+
+          {/* Mobile Hamburger Button */}
+          <button 
+            className="mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              display: 'none',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '10px',
+              zIndex: 200
+            }}
+          >
+            <div style={{ width: '28px', height: '20px', position: 'relative' }}>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: menuOpen ? '8px' : '0',
+                transform: menuOpen ? 'rotate(45deg)' : 'none'
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: '8px',
+                opacity: menuOpen ? 0 : 1
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: menuOpen ? '8px' : '16px',
+                transform: menuOpen ? 'rotate(-45deg)' : 'none'
+              }}></div>
+            </div>
+          </button>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {menuOpen && (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            paddingTop: '30px',
+            paddingBottom: '20px',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            marginTop: '20px'
+          }}>
+            <Link href="/" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>HOME</Link>
+            <Link href="/about" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>ABOUT</Link>
+            <Link href="/services" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>SERVICES</Link>
+            <Link href="/portfolio" onClick={() => setMenuOpen(false)} style={{ color: '#FFD700', textDecoration: 'none', fontSize: '18px', fontWeight: '600' }}>PORTFOLIO</Link>
+            <Link href="/blog" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>BLOG</Link>
+            
+            <Link href="/contact" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none' }}>
+              <button style={{
+                marginTop: '10px',
+                padding: '15px 30px',
+                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                border: 'none',
+                borderRadius: '30px',
+                color: '#0A0A0A',
+                fontWeight: '700',
+                fontSize: '14px',
+                letterSpacing: '1px',
+                cursor: 'pointer',
+                width: '100%'
+              }}>
+                START PROJECT →
+              </button>
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* HERO SECTION */}
@@ -157,8 +248,8 @@ export default function Portfolio() {
         paddingBottom: '60px'
       }}>
         <div style={{ width: '100%', padding: '0 5%' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{
+          <div className="hero-content" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            <div className="hero-badge" style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '10px',
@@ -174,7 +265,7 @@ export default function Portfolio() {
               </span>
             </div>
 
-            <h1 style={{
+            <h1 className="hero-heading" style={{
               fontSize: '80px',
               fontWeight: '900',
               color: 'white',
@@ -192,7 +283,7 @@ export default function Portfolio() {
               }}>EXCELLENCE</span>
             </h1>
 
-            <p style={{
+            <p className="hero-subtitle" style={{
               fontSize: '20px',
               color: 'rgba(255,255,255,0.6)',
               marginBottom: '50px',
@@ -209,7 +300,7 @@ export default function Portfolio() {
       {/* FILTER SECTION */}
       <section style={{ padding: '40px 5%', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+          <div className="filter-buttons" style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', justifyContent: 'center' }}>
             {filters.map((filter) => (
               <button
                 key={filter}
@@ -240,10 +331,15 @@ export default function Portfolio() {
       {/* PROJECTS GRID */}
       <section style={{ padding: '80px 5%', backgroundColor: '#0A0A0A' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(450px, 1fr))', gap: '30px' }}>
+          <div className="projects-grid" style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', 
+            gap: '30px' 
+          }}>
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
+                className="project-card"
                 style={{
                   borderRadius: '25px',
                   overflow: 'hidden',
@@ -253,7 +349,7 @@ export default function Portfolio() {
                   background: project.gradient,
                   transition: 'transform 0.3s'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
                 <div style={{
@@ -354,14 +450,14 @@ export default function Portfolio() {
       {/* STATS SECTION */}
       <section style={{ padding: '100px 5%', backgroundColor: '#0F0F0F' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', textAlign: 'center' }}>
+          <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', textAlign: 'center' }}>
             {[
               { number: '530+', label: 'PROJECTS DELIVERED' },
               { number: '100%', label: 'RAJUK SUCCESS' },
-              { number: '12+', label: 'YEARS EXPERIENCE' },
+              { number: '8+', label: 'YEARS EXPERIENCE' },
               { number: '25+', label: 'TEAM MEMBERS' }
             ].map((stat, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="stat-card" style={{
                 padding: '40px',
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '20px',
@@ -396,8 +492,8 @@ export default function Portfolio() {
         backgroundColor: '#0A0A0A',
         background: 'radial-gradient(circle at 50% 50%, rgba(255,215,0,0.15), transparent 70%)'
       }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{
+        <div className="cta-content" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 className="cta-heading" style={{
             fontSize: '64px',
             fontWeight: '900',
             color: 'white',
@@ -421,26 +517,45 @@ export default function Portfolio() {
             Join our portfolio of excellence. Start your project today.
           </p>
 
-          <Link href="/contact">
-            <button style={{
-              padding: '20px 50px',
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+          <div className="cta-buttons-final" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/contact">
+              <button style={{
+                padding: '20px 50px',
+                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                border: 'none',
+                borderRadius: '60px',
+                color: '#0A0A0A',
+                fontWeight: '800',
+                fontSize: '16px',
+                letterSpacing: '1px',
+                cursor: 'pointer',
+                boxShadow: '0 30px 60px rgba(255,215,0,0.4)'
+              }}>
+                START YOUR PROJECT →
+              </button>
+            </Link>
+            <a href="https://wa.me/8801958140774" style={{
+              padding: '20px 40px',
+              background: '#25D366',
               border: 'none',
               borderRadius: '60px',
-              color: '#0A0A0A',
-              fontWeight: '800',
+              color: 'white',
+              fontWeight: '700',
               fontSize: '16px',
-              letterSpacing: '1px',
               cursor: 'pointer',
-              boxShadow: '0 30px 60px rgba(255,215,0,0.4)'
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px'
             }}>
-              START YOUR PROJECT →
-            </button>
-          </Link>
+              <span style={{ fontSize: '20px' }}>💬</span>
+              WHATSAPP NOW
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* FOOTER - COMPLETE */}
+      {/* FOOTER */}
       <footer style={{ 
         padding: '80px 5%', 
         backgroundColor: '#000',
@@ -448,7 +563,7 @@ export default function Portfolio() {
         fontFamily: 'system-ui, sans-serif'
       }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
+          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
             
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '25px' }}>
@@ -473,7 +588,7 @@ export default function Portfolio() {
               </p>
               
               <div style={{ display: 'flex', gap: '15px' }}>
-                {['F', 'I', 'L', 'Y'].map((social, idx) => (
+                {['facebook', 'instagram', 'linkedin', 'youtube'].map((social, idx) => (
                   <div key={idx} style={{
                     width: '40px',
                     height: '40px',
@@ -487,7 +602,7 @@ export default function Portfolio() {
                     color: 'rgba(255,255,255,0.5)',
                     fontSize: '12px'
                   }}>
-                    {social}
+                    {social[0].toUpperCase()}
                   </div>
                 ))}
               </div>
@@ -504,10 +619,18 @@ export default function Portfolio() {
 
             <div>
               <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>QUICK LINKS</h4>
-              {['About Us', 'Portfolio', 'Blog', 'Contact'].map((item, idx) => (
-                <p key={idx} style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '12px', cursor: 'pointer' }}>
-                  {item}
-                </p>
+              {[
+                { name: 'About Us', link: '/about' },
+                { name: 'Portfolio', link: '/portfolio' },
+                { name: 'Services', link: '/services' },
+                { name: 'Blog', link: '/blog' },
+                { name: 'Contact', link: '/contact' }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.link} style={{ textDecoration: 'none', display: 'block' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '12px', cursor: 'pointer' }}>
+                    {item.name}
+                  </p>
+                </Link>
               ))}
             </div>
 
@@ -515,15 +638,244 @@ export default function Portfolio() {
               <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>CONTACT</h4>
               <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>📞 +880 1958-140774</p>
               <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>✉️ contact@insaflimited.com</p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px' }}>📍 Jatrabari, Dhaka</p>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '20px' }}>📍 Kazlar par, Jatrabari, Dhaka 1204</p>
+              <button onClick={() => window.open('https://maps.app.goo.gl/6KuYrT1nowS4nao46', '_blank')} style={{
+                padding: '12px 25px',
+                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                border: 'none',
+                borderRadius: '30px',
+                color: '#000',
+                fontWeight: '700',
+                fontSize: '12px',
+                letterSpacing: '1px',
+                cursor: 'pointer'
+              }}>
+                GET DIRECTIONS
+              </button>
             </div>
           </div>
 
-          <div style={{ marginTop: '80px', paddingTop: '30px', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center' }}>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>© 2026 INSAF LIMITED. All rights reserved.</p>
+          <div style={{ 
+            marginTop: '80px', 
+            paddingTop: '30px', 
+            borderTop: '1px solid rgba(255,255,255,0.1)', 
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '20px'
+          }}>
+            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
+              © 2024 INSAF LIMITED. All rights reserved.
+            </p>
+            <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
+              <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Privacy Policy</a>
+              <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Terms of Service</a>
+            </div>
           </div>
         </div>
       </footer>
+
+      {/* CSS Animations + Mobile Responsive Styles */}
+      <style>{`
+        /* Prevent horizontal scroll */
+        body {
+          overflow-x: hidden !important;
+        }
+
+        /* Hide mobile menu button by default */
+        .mobile-menu-btn {
+          display: none !important;
+        }
+
+        /* Mobile Devices (768px and below) */
+        @media (max-width: 768px) {
+          
+          /* Navigation */
+          nav {
+            width: 95% !important;
+            padding: 12px 20px !important;
+            top: 10px !important;
+          }
+          
+          .desktop-menu {
+            display: none !important;
+          }
+          
+          .desktop-cta {
+            display: none !important;
+          }
+          
+          .mobile-menu-btn {
+            display: block !important;
+          }
+          
+          /* Hero Section */
+          .hero-content {
+            text-align: center !important;
+          }
+          
+          .hero-badge {
+            margin: 0 auto 20px !important;
+          }
+          
+          .hero-heading {
+            font-size: 42px !important;
+            letter-spacing: -1px !important;
+            text-align: center !important;
+          }
+          
+          .hero-subtitle {
+            font-size: 16px !important;
+            text-align: center !important;
+            margin: 0 auto 40px !important;
+          }
+          
+          /* Filter Buttons */
+          .filter-buttons {
+            gap: 10px !important;
+          }
+          
+          .filter-buttons button {
+            padding: 10px 20px !important;
+            font-size: 11px !important;
+          }
+          
+          /* Projects Grid */
+          .projects-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          
+          .project-card {
+            height: 450px !important;
+          }
+          
+          .project-card h3 {
+            font-size: 24px !important;
+          }
+          
+          .project-card > div {
+            padding: 25px !important;
+          }
+          
+          /* Stats Grid */
+          .stats-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 20px !important;
+          }
+          
+          .stat-card {
+            padding: 30px 20px !important;
+          }
+          
+          .stat-card > div:first-child {
+            font-size: 36px !important;
+          }
+          
+          /* CTA Section */
+          .cta-content {
+            padding: 40px 20px !important;
+          }
+          
+          .cta-heading {
+            font-size: 36px !important;
+            line-height: 1.2 !important;
+          }
+          
+          .cta-buttons-final {
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+          
+          .cta-buttons-final button,
+          .cta-buttons-final a {
+            width: 100% !important;
+            max-width: 300px !important;
+            justify-content: center !important;
+          }
+          
+          /* Footer */
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            text-align: center !important;
+          }
+          
+          .footer-grid > div {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+        }
+
+        /* Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+          .hero-heading {
+            font-size: 32px !important;
+          }
+          
+          .hero-subtitle {
+            font-size: 14px !important;
+          }
+          
+          .cta-heading {
+            font-size: 28px !important;
+          }
+          
+          .project-card {
+            height: 400px !important;
+          }
+          
+          .project-card h3 {
+            font-size: 22px !important;
+          }
+          
+          /* Stats - 1 column on very small */
+          .stats-grid {
+            grid-template-columns: 1fr !important;
+          }
+          
+          .filter-buttons button {
+            padding: 8px 16px !important;
+            font-size: 10px !important;
+          }
+        }
+
+        /* Tablet (769px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-heading {
+            font-size: 56px !important;
+          }
+          
+          .projects-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          
+          .project-card {
+            height: 480px !important;
+          }
+          
+          .stats-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          
+          .footer-grid {
+            grid-template-columns: 2fr 1fr 1fr !important;
+          }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+          button, a {
+            min-height: 44px !important;
+          }
+          
+          .project-card:active {
+            transform: scale(0.98) !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

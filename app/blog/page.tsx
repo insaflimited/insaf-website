@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('all')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const categories = [
     { id: 'all', name: 'All Posts', count: 24 },
@@ -90,9 +91,14 @@ export default function Blog() {
     : blogPosts.filter(post => post.category === activeCategory)
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0A0A0A', fontFamily: 'system-ui, sans-serif' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#0A0A0A', 
+      fontFamily: 'system-ui, sans-serif',
+      overflowX: 'hidden' 
+    }}>
       
-      {/* FLOATING NAVBAR */}
+      {/* FLOATING NAVBAR - Mobile Responsive */}
       <nav style={{
         position: 'fixed',
         top: '20px',
@@ -108,7 +114,8 @@ export default function Blog() {
         padding: '15px 30px'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Logo */}
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
               width: '45px',
               height: '45px',
@@ -122,14 +129,13 @@ export default function Blog() {
               <span style={{ color: '#0A0A0A', fontWeight: 'bold', fontSize: '24px' }}>I</span>
             </div>
             <div>
-              <Link href="/" style={{ textDecoration: 'none' }}>
-                <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
-                <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
-              </Link>
+              <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
+              <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
             </div>
-          </div>
+          </Link>
 
-          <div style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
+          {/* Desktop Menu */}
+          <div className="desktop-menu" style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
             <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>HOME</Link>
             <Link href="/about" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>ABOUT</Link>
             <Link href="/services" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>SERVICES</Link>
@@ -137,7 +143,8 @@ export default function Blog() {
             <Link href="/blog" style={{ color: '#FFD700', textDecoration: 'none' }}>BLOG</Link>
           </div>
 
-          <Link href="/contact">
+          {/* Desktop CTA */}
+          <Link href="/contact" className="desktop-cta">
             <button style={{
               padding: '12px 25px',
               background: 'linear-gradient(135deg, #FFD700, #FFA500)',
@@ -153,7 +160,91 @@ export default function Blog() {
               CONTACT US →
             </button>
           </Link>
+
+          {/* Mobile Hamburger Button */}
+          <button 
+            className="mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              display: 'none',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '10px',
+              zIndex: 200
+            }}
+          >
+            <div style={{ width: '28px', height: '20px', position: 'relative' }}>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: menuOpen ? '8px' : '0',
+                transform: menuOpen ? 'rotate(45deg)' : 'none'
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: '8px',
+                opacity: menuOpen ? 0 : 1
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: menuOpen ? '8px' : '16px',
+                transform: menuOpen ? 'rotate(-45deg)' : 'none'
+              }}></div>
+            </div>
+          </button>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {menuOpen && (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            paddingTop: '30px',
+            paddingBottom: '20px',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            marginTop: '20px'
+          }}>
+            <Link href="/" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>HOME</Link>
+            <Link href="/about" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>ABOUT</Link>
+            <Link href="/services" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>SERVICES</Link>
+            <Link href="/portfolio" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>PORTFOLIO</Link>
+            <Link href="/blog" onClick={() => setMenuOpen(false)} style={{ color: '#FFD700', textDecoration: 'none', fontSize: '18px', fontWeight: '600' }}>BLOG</Link>
+            
+            <Link href="/contact" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none' }}>
+              <button style={{
+                marginTop: '10px',
+                padding: '15px 30px',
+                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                border: 'none',
+                borderRadius: '30px',
+                color: '#0A0A0A',
+                fontWeight: '700',
+                fontSize: '14px',
+                letterSpacing: '1px',
+                cursor: 'pointer',
+                width: '100%'
+              }}>
+                CONTACT US →
+              </button>
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* HERO SECTION */}
@@ -166,8 +257,8 @@ export default function Blog() {
         paddingBottom: '60px'
       }}>
         <div style={{ width: '100%', padding: '0 5%' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{
+          <div className="hero-content" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            <div className="hero-badge" style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '10px',
@@ -183,7 +274,7 @@ export default function Blog() {
               </span>
             </div>
 
-            <h1 style={{
+            <h1 className="hero-heading" style={{
               fontSize: '80px',
               fontWeight: '900',
               color: 'white',
@@ -201,7 +292,7 @@ export default function Blog() {
               }}>INSIGHTS</span>
             </h1>
 
-            <p style={{
+            <p className="hero-subtitle" style={{
               fontSize: '20px',
               color: 'rgba(255,255,255,0.6)',
               marginBottom: '50px',
@@ -218,7 +309,7 @@ export default function Blog() {
       {/* FEATURED ARTICLE */}
       <section style={{ padding: '60px 5%', backgroundColor: '#0A0A0A' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{
+          <div className="featured-article" style={{
             background: 'linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.1))',
             borderRadius: '30px',
             padding: '60px',
@@ -238,8 +329,15 @@ export default function Blog() {
               filter: 'blur(60px)'
             }}></div>
 
-            <div style={{ position: 'relative', zIndex: 2, display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '60px', alignItems: 'center' }}>
-              <div>
+            <div className="featured-grid" style={{ 
+              position: 'relative', 
+              zIndex: 2, 
+              display: 'grid', 
+              gridTemplateColumns: '2fr 1fr', 
+              gap: '60px', 
+              alignItems: 'center' 
+            }}>
+              <div className="featured-content">
                 <div style={{
                   display: 'inline-block',
                   padding: '8px 20px',
@@ -252,7 +350,7 @@ export default function Blog() {
                   </span>
                 </div>
 
-                <h2 style={{
+                <h2 className="featured-title" style={{
                   fontSize: '42px',
                   fontWeight: '900',
                   color: 'white',
@@ -312,7 +410,7 @@ export default function Blog() {
                 </button>
               </div>
 
-              <div style={{
+              <div className="featured-visual" style={{
                 width: '100%',
                 height: '300px',
                 background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
@@ -332,7 +430,7 @@ export default function Blog() {
       {/* CATEGORY FILTERS */}
       <section style={{ padding: '40px 5%', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+          <div className="filter-buttons" style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', justifyContent: 'center' }}>
             {categories.map((cat) => (
               <button
                 key={cat.id}
@@ -374,10 +472,15 @@ export default function Blog() {
       {/* BLOG POSTS GRID */}
       <section style={{ padding: '80px 5%', backgroundColor: '#0F0F0F' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(420px, 1fr))', gap: '30px' }}>
+          <div className="blog-grid" style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', 
+            gap: '30px' 
+          }}>
             {filteredPosts.map((post) => (
               <article
                 key={post.id}
+                className="blog-card"
                 style={{
                   backgroundColor: 'rgba(255,255,255,0.03)',
                   borderRadius: '25px',
@@ -503,7 +606,7 @@ export default function Blog() {
         backgroundColor: '#0A0A0A',
         background: 'radial-gradient(circle at 50% 50%, rgba(255,215,0,0.1), transparent 70%)'
       }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+        <div className="newsletter-content" style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
           <div style={{
             display: 'inline-block',
             padding: '8px 20px',
@@ -516,7 +619,7 @@ export default function Blog() {
             </span>
           </div>
 
-          <h2 style={{
+          <h2 className="newsletter-heading" style={{
             fontSize: '48px',
             fontWeight: '900',
             color: 'white',
@@ -535,17 +638,19 @@ export default function Blog() {
             Subscribe to receive expert articles on architecture, design trends, and construction tips directly to your inbox.
           </p>
 
-          <div style={{
+          <div className="newsletter-form" style={{
             display: 'flex',
             gap: '15px',
             maxWidth: '500px',
-            margin: '0 auto'
+            margin: '0 auto',
+            flexWrap: 'wrap'
           }}>
             <input
               type="email"
               placeholder="Enter your email"
               style={{
                 flex: 1,
+                minWidth: '250px',
                 padding: '18px 25px',
                 backgroundColor: 'rgba(255,255,255,0.05)',
                 border: '1px solid rgba(255,255,255,0.1)',
@@ -565,7 +670,8 @@ export default function Blog() {
               fontSize: '14px',
               letterSpacing: '1px',
               cursor: 'pointer',
-              boxShadow: '0 20px 40px rgba(255,215,0,0.3)'
+              boxShadow: '0 20px 40px rgba(255,215,0,0.3)',
+              whiteSpace: 'nowrap'
             }}>
               SUBSCRIBE
             </button>
@@ -581,14 +687,14 @@ export default function Blog() {
         </div>
       </section>
 
-       {/* FOOTER - MINIMAL */}
+      {/* FOOTER */}
       <footer style={{ 
         padding: '80px 5%', 
         backgroundColor: '#000',
         borderTop: '1px solid rgba(255,255,255,0.1)'
       }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
+          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
             {/* Brand Column */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '25px' }}>
@@ -611,7 +717,7 @@ export default function Blog() {
               <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', lineHeight: '1.8', marginBottom: '30px' }}>
                 Defining Bangladesh's skyline with architectural excellence and structural precision since 2018.
               </p>
-              {/* Social Icons */}
+              
               <div style={{ display: 'flex', gap: '15px' }}>
                 {['facebook', 'instagram', 'linkedin', 'youtube'].map((social, idx) => (
                   <div key={idx} style={{
@@ -653,16 +759,24 @@ export default function Blog() {
             {/* Quick Links */}
             <div>
               <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>QUICK LINKS</h4>
-              {['About Us', 'Portfolio', 'Process', 'Testimonials', 'Contact'].map((item, idx) => (
-                <p key={idx} style={{ 
-                  color: 'rgba(255,255,255,0.5)', 
-                  fontSize: '14px', 
-                  marginBottom: '12px',
-                  cursor: 'pointer',
-                  transition: '0.3s'
-                }}>
-                  {item}
-                </p>
+              {[
+                { name: 'About Us', link: '/about' },
+                { name: 'Portfolio', link: '/portfolio' },
+                { name: 'Services', link: '/services' },
+                { name: 'Blog', link: '/blog' },
+                { name: 'Contact', link: '/contact' }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.link} style={{ textDecoration: 'none', display: 'block' }}>
+                  <p style={{ 
+                    color: 'rgba(255,255,255,0.5)', 
+                    fontSize: '14px', 
+                    marginBottom: '12px',
+                    cursor: 'pointer',
+                    transition: '0.3s'
+                  }}>
+                    {item.name}
+                  </p>
+                </Link>
               ))}
             </div>
 
@@ -690,7 +804,6 @@ export default function Blog() {
                 cursor: 'pointer'
               }}>
                 GET DIRECTIONS
-                
               </button>
             </div>
           </div>
@@ -702,12 +815,14 @@ export default function Blog() {
             borderTop: '1px solid rgba(255,255,255,0.1)',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '20px'
           }}>
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
-              © 2026 INSAF LIMITED. All rights reserved.
+              © 2024 INSAF LIMITED. All rights reserved.
             </p>
-            <div style={{ display: 'flex', gap: '30px' }}>
+            <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
               <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Privacy Policy</a>
               <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Terms of Service</a>
               <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Sitemap</a>
@@ -718,25 +833,9 @@ export default function Blog() {
 
       {/* CSS Animations + Mobile Responsive */}
       <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        
-        @keyframes float {
-          0%, 100% { transform: translateY(0) rotate(-5deg); }
-          50% { transform: translateY(-20px) rotate(-5deg); }
-        }
-        
-        @keyframes slideIn {
-          from { 
-            opacity: 0;
-            transform: translateX(-50px);
-          }
-          to { 
-            opacity: 1;
-            transform: translateX(0);
-          }
+        /* Prevent horizontal scroll */
+        body {
+          overflow-x: hidden !important;
         }
 
         * {
@@ -746,6 +845,7 @@ export default function Blog() {
 
         *::-webkit-scrollbar {
           height: 8px;
+          width: 8px;
         }
 
         *::-webkit-scrollbar-track {
@@ -757,16 +857,194 @@ export default function Blog() {
           border-radius: 20px;
         }
 
-        /* Mobile Menu CSS */
+        /* Hide mobile menu button by default */
+        .mobile-menu-btn {
+          display: none !important;
+        }
+
+        /* Mobile Devices (768px and below) */
         @media (max-width: 768px) {
+          
+          /* Navigation */
+          nav {
+            width: 95% !important;
+            padding: 12px 20px !important;
+            top: 10px !important;
+          }
+          
           .desktop-menu {
             display: none !important;
           }
+          
           .desktop-cta {
             display: none !important;
           }
+          
           .mobile-menu-btn {
             display: block !important;
+          }
+          
+          /* Hero Section */
+          .hero-content {
+            text-align: center !important;
+          }
+          
+          .hero-badge {
+            margin: 0 auto 20px !important;
+          }
+          
+          .hero-heading {
+            font-size: 42px !important;
+            letter-spacing: -1px !important;
+            text-align: center !important;
+          }
+          
+          .hero-subtitle {
+            font-size: 16px !important;
+            text-align: center !important;
+            margin: 0 auto !important;
+          }
+          
+          /* Featured Article */
+          .featured-article {
+            padding: 30px 20px !important;
+          }
+          
+          .featured-grid {
+            grid-template-columns: 1fr !important;
+            gap: 30px !important;
+          }
+          
+          .featured-content {
+            text-align: center !important;
+          }
+          
+          .featured-content > div:first-child {
+            margin: 0 auto 20px !important;
+          }
+          
+          .featured-content button {
+            margin: 0 auto !important;
+          }
+          
+          .featured-title {
+            font-size: 28px !important;
+          }
+          
+          .featured-visual {
+            height: 200px !important;
+            font-size: 60px !important;
+          }
+          
+          /* Filter Buttons */
+          .filter-buttons {
+            gap: 10px !important;
+          }
+          
+          .filter-buttons button {
+            padding: 10px 20px !important;
+            font-size: 11px !important;
+          }
+          
+          /* Blog Grid */
+          .blog-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          
+          .blog-card h3 {
+            font-size: 20px !important;
+          }
+          
+          /* Newsletter */
+          .newsletter-content {
+            padding: 0 10px !important;
+          }
+          
+          .newsletter-heading {
+            font-size: 32px !important;
+          }
+          
+          .newsletter-form {
+            flex-direction: column !important;
+            gap: 10px !important;
+          }
+          
+          .newsletter-form input,
+          .newsletter-form button {
+            width: 100% !important;
+            min-width: 100% !important;
+          }
+          
+          /* Footer */
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            text-align: center !important;
+          }
+          
+          .footer-grid > div {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+        }
+
+        /* Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+          .hero-heading {
+            font-size: 32px !important;
+          }
+          
+          .hero-subtitle {
+            font-size: 14px !important;
+          }
+          
+          .featured-title {
+            font-size: 24px !important;
+          }
+          
+          .newsletter-heading {
+            font-size: 28px !important;
+          }
+          
+          .blog-card {
+            font-size: 14px !important;
+          }
+          
+          .filter-buttons button {
+            padding: 8px 16px !important;
+            font-size: 10px !important;
+          }
+        }
+
+        /* Tablet (769px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-heading {
+            font-size: 56px !important;
+          }
+          
+          .featured-title {
+            font-size: 36px !important;
+          }
+          
+          .blog-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          
+          .footer-grid {
+            grid-template-columns: 2fr 1fr 1fr !important;
+          }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+          button, a {
+            min-height: 44px !important;
+          }
+          
+          .blog-card:active {
+            transform: translateY(-5px) !important;
           }
         }
       `}</style>

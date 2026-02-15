@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Your existing gold palette
         gold: {
           50: '#FAF8F3',
           100: '#F5F0E6',
@@ -21,6 +22,7 @@ const config: Config = {
           800: '#5E4C1C',
           900: '#312F24',
         },
+        // Your existing dark palette
         dark: {
           50: '#F5F5F5',
           100: '#E5E5E5',
@@ -34,19 +36,38 @@ const config: Config = {
           900: '#0A0A0A',
         },
         cream: '#F8F6F1',
+        
+        // Additional colors for our design
+        primary: {
+          DEFAULT: '#FFD700',
+          light: '#FFE55C',
+          dark: '#FFA500',
+        },
+        secondary: {
+          DEFAULT: '#FFA500',
+          light: '#FFB733',
+          dark: '#FF8C00',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         bangla: ['Hind Siliguri', 'system-ui', 'sans-serif'],
       },
       animation: {
+        // Your existing animations
         'fade-in': 'fadeIn 0.6s ease-out',
         'fade-in-up': 'fadeInUp 0.8s ease-out',
         'scale-in': 'scaleIn 0.5s ease-out',
         'slide-in-right': 'slideInRight 0.6s ease-out',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        
+        // Additional animations for our design
+        'float': 'float 6s ease-in-out infinite',
+        'slide-in': 'slideIn 1s ease-out',
+        'glow': 'glow 2s ease-in-out infinite',
       },
       keyframes: {
+        // Your existing keyframes
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
@@ -63,11 +84,39 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateX(-20px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
         },
+        
+        // Additional keyframes for our design
+        float: {
+          '0%, 100%': { transform: 'translateY(0) rotate(-5deg)' },
+          '50%': { transform: 'translateY(-20px) rotate(-5deg)' },
+        },
+        slideIn: {
+          'from': { opacity: '0', transform: 'translateX(-50px)' },
+          'to': { opacity: '1', transform: 'translateX(0)' },
+        },
+        glow: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(255, 215, 0, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(255, 215, 0, 0.6)' },
+        },
       },
       boxShadow: {
+        // Your existing shadows
         'gold': '0 4px 20px rgba(201, 169, 97, 0.15)',
         'gold-lg': '0 10px 40px rgba(201, 169, 97, 0.25)',
         'dark': '0 4px 20px rgba(43, 43, 43, 0.1)',
+        
+        // Additional shadows for our design
+        'glow': '0 0 30px rgba(255, 215, 0, 0.5)',
+        'glow-lg': '0 0 60px rgba(255, 215, 0, 0.6)',
+        'card': '0 20px 40px rgba(0, 0, 0, 0.1)',
+      },
+      backdropBlur: {
+        xs: '2px',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-gold': 'linear-gradient(135deg, #FFD700, #FFA500)',
+        'gradient-dark': 'linear-gradient(135deg, #0A0A0A, #1a1a1a)',
       },
     },
   },

@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 export default function Services() {
   const [activeService, setActiveService] = useState(0)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const services = [
     {
@@ -22,7 +23,7 @@ export default function Services() {
       tagline: 'Built to Last',
       description: 'In-house structural engineers ensuring your building stands the test of time. BNBC compliant calculations and earthquake-resistant design.',
       features: ['Load Calculations', 'Foundation Design', 'Structural Analysis', 'BNBC Compliance', 'Site Supervision'],
-      price: 'From ₹50,000'
+      price: 'From ৳50,000'
     },
     {
       id: 3,
@@ -31,7 +32,7 @@ export default function Services() {
       tagline: '100% Success Rate',
       description: '530+ successful approvals. We handle the entire process from documentation to final approval. Average approval time: 4-6 months.',
       features: ['Document Preparation', 'DAP Analysis', 'Application Submission', 'Follow-up', 'Approval Collection'],
-      price: 'From ₹75,000'
+      price: 'From ৳75,000'
     },
     {
       id: 4,
@@ -40,7 +41,7 @@ export default function Services() {
       tagline: 'Luxury Within',
       description: 'Transform your interiors into masterpieces. Our designers create spaces that reflect your personality while maximizing functionality.',
       features: ['Space Planning', '3D Renders', 'Furniture Design', 'Material Selection', 'Execution Support'],
-      price: 'From ₹40,000'
+      price: 'From ৳40,000'
     },
     {
       id: 5,
@@ -49,7 +50,7 @@ export default function Services() {
       tagline: 'See Before You Build',
       description: 'Photorealistic 3D renders and immersive VR walkthroughs. Experience your space before construction begins.',
       features: ['Exterior Renders', 'Interior Renders', 'VR Walkthrough', '360° Views', 'Animation Videos'],
-      price: 'From ₹30,000'
+      price: 'From ৳30,000'
     },
     {
       id: 6,
@@ -63,9 +64,15 @@ export default function Services() {
   ]
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0A0A0A', fontFamily: 'system-ui, sans-serif', overflow: 'hidden' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#0A0A0A', 
+      fontFamily: 'system-ui, sans-serif', 
+      overflow: 'hidden',
+      overflowX: 'hidden' 
+    }}>
       
-      {/* FLOATING NAVBAR */}
+      {/* FLOATING NAVBAR - Mobile Responsive */}
       <nav style={{
         position: 'fixed',
         top: '20px',
@@ -81,7 +88,8 @@ export default function Services() {
         padding: '15px 30px'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Logo */}
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
               width: '45px',
               height: '45px',
@@ -95,14 +103,13 @@ export default function Services() {
               <span style={{ color: '#0A0A0A', fontWeight: 'bold', fontSize: '24px' }}>I</span>
             </div>
             <div>
-              <Link href="/" style={{ textDecoration: 'none' }}>
-                <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
-                <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
-              </Link>
+              <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
+              <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
             </div>
-          </div>
+          </Link>
 
-          <div style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
+          {/* Desktop Menu */}
+          <div className="desktop-menu" style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
             <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>HOME</Link>
             <Link href="/about" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>ABOUT</Link>
             <Link href="/services" style={{ color: '#FFD700', textDecoration: 'none' }}>SERVICES</Link>
@@ -110,7 +117,8 @@ export default function Services() {
             <Link href="/blog" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>BLOG</Link>
           </div>
 
-          <Link href="/contact">
+          {/* Desktop CTA */}
+          <Link href="/contact" className="desktop-cta">
             <button style={{
               padding: '12px 25px',
               background: 'linear-gradient(135deg, #FFD700, #FFA500)',
@@ -126,7 +134,91 @@ export default function Services() {
               GET QUOTE →
             </button>
           </Link>
+
+          {/* Mobile Hamburger Button */}
+          <button 
+            className="mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              display: 'none',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '10px',
+              zIndex: 200
+            }}
+          >
+            <div style={{ width: '28px', height: '20px', position: 'relative' }}>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: menuOpen ? '8px' : '0',
+                transform: menuOpen ? 'rotate(45deg)' : 'none'
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: '8px',
+                opacity: menuOpen ? 0 : 1
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: menuOpen ? '8px' : '16px',
+                transform: menuOpen ? 'rotate(-45deg)' : 'none'
+              }}></div>
+            </div>
+          </button>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {menuOpen && (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            paddingTop: '30px',
+            paddingBottom: '20px',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            marginTop: '20px'
+          }}>
+            <Link href="/" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>HOME</Link>
+            <Link href="/about" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>ABOUT</Link>
+            <Link href="/services" onClick={() => setMenuOpen(false)} style={{ color: '#FFD700', textDecoration: 'none', fontSize: '18px', fontWeight: '600' }}>SERVICES</Link>
+            <Link href="/portfolio" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>PORTFOLIO</Link>
+            <Link href="/blog" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>BLOG</Link>
+            
+            <Link href="/contact" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none' }}>
+              <button style={{
+                marginTop: '10px',
+                padding: '15px 30px',
+                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                border: 'none',
+                borderRadius: '30px',
+                color: '#0A0A0A',
+                fontWeight: '700',
+                fontSize: '14px',
+                letterSpacing: '1px',
+                cursor: 'pointer',
+                width: '100%'
+              }}>
+                GET QUOTE →
+              </button>
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* HERO SECTION */}
@@ -139,8 +231,8 @@ export default function Services() {
         paddingBottom: '60px'
       }}>
         <div style={{ width: '100%', padding: '0 5%' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto', textAlign: 'center' }}>
-            <div style={{
+          <div className="hero-content" style={{ maxWidth: '1400px', margin: '0 auto', textAlign: 'center' }}>
+            <div className="hero-badge" style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '10px',
@@ -154,7 +246,7 @@ export default function Services() {
               <span style={{ color: '#FFD700', fontSize: '12px', letterSpacing: '2px', fontWeight: '600' }}>PREMIUM SERVICES</span>
             </div>
 
-            <h1 style={{
+            <h1 className="hero-heading" style={{
               fontSize: '80px',
               fontWeight: '900',
               color: 'white',
@@ -171,7 +263,7 @@ export default function Services() {
               }}>TRANSFORM</span>
             </h1>
 
-            <p style={{
+            <p className="hero-subtitle" style={{
               fontSize: '20px',
               color: 'rgba(255,255,255,0.6)',
               marginBottom: '50px',
@@ -183,7 +275,7 @@ export default function Services() {
               comprehensive solutions that exceed expectations.
             </p>
 
-            <div style={{
+            <div className="stats-row" style={{
               display: 'flex',
               gap: '60px',
               justifyContent: 'center',
@@ -192,17 +284,18 @@ export default function Services() {
               borderRadius: '20px',
               border: '1px solid rgba(255,255,255,0.1)',
               maxWidth: '900px',
-              margin: '0 auto'
+              margin: '0 auto',
+              flexWrap: 'wrap'
             }}>
-              <div>
+              <div className="stat-item">
                 <div style={{ fontSize: '36px', fontWeight: '900', color: '#FFD700' }}>6</div>
                 <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', letterSpacing: '1px' }}>CORE SERVICES</div>
               </div>
-              <div>
+              <div className="stat-item">
                 <div style={{ fontSize: '36px', fontWeight: '900', color: '#FFD700' }}>100%</div>
                 <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', letterSpacing: '1px' }}>SUCCESS RATE</div>
               </div>
-              <div>
+              <div className="stat-item">
                 <div style={{ fontSize: '36px', fontWeight: '900', color: '#FFD700' }}>24/7</div>
                 <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', letterSpacing: '1px' }}>SUPPORT</div>
               </div>
@@ -216,12 +309,12 @@ export default function Services() {
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '80px' }}>
             <div style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>OUR EXPERTISE</div>
-            <h2 style={{ fontSize: '56px', fontWeight: '900', color: 'white', letterSpacing: '-1px' }}>
+            <h2 className="section-heading" style={{ fontSize: '56px', fontWeight: '900', color: 'white', letterSpacing: '-1px' }}>
               COMPLETE <span style={{ color: '#FFD700' }}>SOLUTIONS</span>
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px' }}>
+          <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px' }}>
             {services.map((service, idx) => (
               <div
                 key={service.id}
@@ -318,8 +411,8 @@ export default function Services() {
       {/* SERVICE DETAIL SECTION */}
       <section style={{ padding: '100px 5%', backgroundColor: '#0A0A0A' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
-            <div>
+          <div className="service-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+            <div className="service-detail-content">
               <div style={{
                 display: 'inline-block',
                 padding: '8px 20px',
@@ -332,7 +425,7 @@ export default function Services() {
                 </span>
               </div>
 
-              <h2 style={{
+              <h2 className="section-heading" style={{
                 fontSize: '48px',
                 fontWeight: '900',
                 color: 'white',
@@ -367,7 +460,8 @@ export default function Services() {
                       justifyContent: 'center',
                       fontSize: '14px',
                       color: '#0A0A0A',
-                      fontWeight: 'bold'
+                      fontWeight: 'bold',
+                      flexShrink: 0
                     }}>✓</div>
                     <span style={{ fontSize: '15px', color: 'rgba(255,255,255,0.7)' }}>{feature}</span>
                   </div>
@@ -396,7 +490,7 @@ export default function Services() {
               </Link>
             </div>
 
-            <div style={{
+            <div className="service-detail-visual" style={{
               background: 'linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05))',
               borderRadius: '30px',
               padding: '60px',
@@ -449,12 +543,12 @@ export default function Services() {
             <div style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>
               HOW WE WORK
             </div>
-            <h2 style={{ fontSize: '56px', fontWeight: '900', color: 'white', letterSpacing: '-1px' }}>
+            <h2 className="section-heading" style={{ fontSize: '56px', fontWeight: '900', color: 'white', letterSpacing: '-1px' }}>
               OUR <span style={{ color: '#FFD700' }}>PROCESS</span>
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '30px' }}>
+          <div className="process-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '30px' }}>
             {[
               { step: '01', title: 'Consultation', desc: 'Understanding your vision', time: 'Day 1' },
               { step: '02', title: 'Planning', desc: 'Detailed strategy & timeline', time: 'Week 1' },
@@ -501,7 +595,7 @@ export default function Services() {
                 </div>
 
                 {idx < 3 && (
-                  <div style={{
+                  <div className="process-arrow" style={{
                     position: 'absolute',
                     top: '50%',
                     right: '-15px',
@@ -523,7 +617,7 @@ export default function Services() {
         backgroundColor: '#0A0A0A',
         background: 'radial-gradient(circle at 50% 50%, rgba(255,215,0,0.15), transparent 70%)'
       }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+        <div className="cta-content" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <div style={{
             display: 'inline-block',
             padding: '10px 25px',
@@ -537,7 +631,7 @@ export default function Services() {
             </span>
           </div>
 
-          <h2 style={{
+          <h2 className="cta-heading" style={{
             fontSize: '64px',
             fontWeight: '900',
             color: 'white',
@@ -563,7 +657,7 @@ export default function Services() {
             Free consultation for the first 10 inquiries this month.
           </p>
 
-          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+          <div className="cta-buttons-final" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/contact">
               <button style={{
                 padding: '20px 50px',
@@ -584,11 +678,28 @@ export default function Services() {
                 <span style={{ fontSize: '24px' }}>→</span>
               </button>
             </Link>
+            <a href="https://wa.me/8801958140774" style={{
+              padding: '20px 40px',
+              background: '#25D366',
+              border: 'none',
+              borderRadius: '60px',
+              color: 'white',
+              fontWeight: '700',
+              fontSize: '16px',
+              cursor: 'pointer',
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px'
+            }}>
+              <span style={{ fontSize: '20px' }}>💬</span>
+              WHATSAPP NOW
+            </a>
           </div>
         </div>
       </section>
 
-      {/* FOOTER - COMPLETE */}
+      {/* FOOTER */}
       <footer style={{ 
         padding: '80px 5%', 
         backgroundColor: '#000',
@@ -596,7 +707,7 @@ export default function Services() {
         fontFamily: 'system-ui, sans-serif'
       }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
+          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
             
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '25px' }}>
@@ -657,15 +768,23 @@ export default function Services() {
 
             <div>
               <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>QUICK LINKS</h4>
-              {['About Us', 'Portfolio', 'Process', 'Testimonials', 'Contact'].map((item, idx) => (
-                <p key={idx} style={{ 
-                  color: 'rgba(255,255,255,0.5)', 
-                  fontSize: '14px', 
-                  marginBottom: '12px',
-                  cursor: 'pointer'
-                }}>
-                  {item}
-                </p>
+              {[
+                { name: 'About Us', link: '/about' },
+                { name: 'Portfolio', link: '/portfolio' },
+                { name: 'Services', link: '/services' },
+                { name: 'Blog', link: '/blog' },
+                { name: 'Contact', link: '/contact' }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.link} style={{ textDecoration: 'none', display: 'block' }}>
+                  <p style={{ 
+                    color: 'rgba(255,255,255,0.5)', 
+                    fontSize: '14px', 
+                    marginBottom: '12px',
+                    cursor: 'pointer'
+                  }}>
+                    {item.name}
+                  </p>
+                </Link>
               ))}
             </div>
 
@@ -680,6 +799,19 @@ export default function Services() {
               <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '20px' }}>
                 📍 Kazlar par, Jatrabari, Dhaka 1204
               </p>
+              <button onClick={() => window.open('https://maps.app.goo.gl/6KuYrT1nowS4nao46', '_blank')} style={{
+                padding: '12px 25px',
+                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                border: 'none',
+                borderRadius: '30px',
+                color: '#000',
+                fontWeight: '700',
+                fontSize: '12px',
+                letterSpacing: '1px',
+                cursor: 'pointer'
+              }}>
+                GET DIRECTIONS
+              </button>
             </div>
           </div>
 
@@ -687,14 +819,227 @@ export default function Services() {
             marginTop: '80px', 
             paddingTop: '30px',
             borderTop: '1px solid rgba(255,255,255,0.1)',
-            textAlign: 'center'
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '20px'
           }}>
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
-              © 2026 INSAF LIMITED. All rights reserved.
+              © 2024 INSAF LIMITED. All rights reserved.
             </p>
+            <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
+              <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Privacy Policy</a>
+              <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Terms of Service</a>
+            </div>
           </div>
         </div>
       </footer>
+
+      {/* CSS Animations + Mobile Responsive Styles */}
+      <style>{`
+        /* Prevent horizontal scroll */
+        body {
+          overflow-x: hidden !important;
+        }
+
+        /* Hide mobile menu button by default */
+        .mobile-menu-btn {
+          display: none !important;
+        }
+
+        /* Mobile Devices (768px and below) */
+        @media (max-width: 768px) {
+          
+          /* Navigation */
+          nav {
+            width: 95% !important;
+            padding: 12px 20px !important;
+            top: 10px !important;
+          }
+          
+          .desktop-menu {
+            display: none !important;
+          }
+          
+          .desktop-cta {
+            display: none !important;
+          }
+          
+          .mobile-menu-btn {
+            display: block !important;
+          }
+          
+          /* Hero Section */
+          .hero-heading {
+            font-size: 42px !important;
+            letter-spacing: -1px !important;
+          }
+          
+          .hero-subtitle {
+            font-size: 16px !important;
+            padding: 0 10px !important;
+          }
+          
+          .stats-row {
+            gap: 30px !important;
+            padding: 30px 20px !important;
+          }
+          
+          .stat-item {
+            text-align: center !important;
+          }
+          
+          /* Section Headings */
+          .section-heading {
+            font-size: 32px !important;
+            text-align: center !important;
+          }
+          
+          /* Services Grid */
+          .services-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          
+          /* Service Detail */
+          .service-detail-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+          
+          .service-detail-content {
+            text-align: center !important;
+          }
+          
+          .service-detail-content > div:first-child {
+            margin: 0 auto 25px !important;
+          }
+          
+          .service-detail-content button {
+            margin: 0 auto !important;
+          }
+          
+          .service-detail-visual {
+            padding: 40px 30px !important;
+          }
+          
+          .service-detail-visual div:last-child > div:first-child {
+            font-size: 80px !important;
+          }
+          
+          .service-detail-visual div:last-child > div:nth-child(3) {
+            font-size: 36px !important;
+          }
+          
+          /* Process Grid */
+          .process-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 20px !important;
+          }
+          
+          .process-arrow {
+            display: none !important;
+          }
+          
+          /* CTA Section */
+          .cta-content {
+            padding: 40px 20px !important;
+          }
+          
+          .cta-heading {
+            font-size: 36px !important;
+            line-height: 1.2 !important;
+          }
+          
+          .cta-buttons-final {
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+          
+          .cta-buttons-final button,
+          .cta-buttons-final a {
+            width: 100% !important;
+            max-width: 300px !important;
+            justify-content: center !important;
+          }
+          
+          /* Footer */
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            text-align: center !important;
+          }
+          
+          .footer-grid > div {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+        }
+
+        /* Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+          .hero-heading {
+            font-size: 32px !important;
+          }
+          
+          .stat-item div:first-child {
+            font-size: 28px !important;
+          }
+          
+          .section-heading {
+            font-size: 28px !important;
+          }
+          
+          .cta-heading {
+            font-size: 28px !important;
+          }
+          
+          /* Process Grid - 1 column on very small screens */
+          .process-grid {
+            grid-template-columns: 1fr !important;
+          }
+          
+          .service-detail-visual div:last-child > div:first-child {
+            font-size: 60px !important;
+          }
+          
+          .service-detail-visual div:last-child > div:nth-child(3) {
+            font-size: 28px !important;
+          }
+        }
+
+        /* Tablet (769px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-heading {
+            font-size: 56px !important;
+          }
+          
+          .services-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          
+          .process-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          
+          .process-arrow {
+            display: none !important;
+          }
+          
+          .footer-grid {
+            grid-template-columns: 2fr 1fr 1fr !important;
+          }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+          button, a {
+            min-height: 44px !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 export default function Contact() {
+  const [menuOpen, setMenuOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,6 +29,14 @@ export default function Contact() {
     setTimeout(() => {
       setIsSubmitting(false)
       alert('Thank you! We will contact you within 24 hours.')
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        projectType: '',
+        budget: '',
+        message: ''
+      })
     }, 2000)
   }
 
@@ -44,9 +53,14 @@ export default function Contact() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0A0A0A', fontFamily: 'system-ui, sans-serif' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#0A0A0A', 
+      fontFamily: 'system-ui, sans-serif',
+      overflowX: 'hidden' 
+    }}>
       
-      {/* FLOATING NAVBAR */}
+      {/* FLOATING NAVBAR - Mobile Responsive */}
       <nav style={{
         position: 'fixed',
         top: '20px',
@@ -62,7 +76,8 @@ export default function Contact() {
         padding: '15px 30px'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Logo */}
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
               width: '45px',
               height: '45px',
@@ -76,14 +91,13 @@ export default function Contact() {
               <span style={{ color: '#0A0A0A', fontWeight: 'bold', fontSize: '24px' }}>I</span>
             </div>
             <div>
-              <Link href="/" style={{ textDecoration: 'none' }}>
-                <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
-                <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
-              </Link>
+              <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
+              <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
             </div>
-          </div>
+          </Link>
 
-          <div style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
+          {/* Desktop Menu */}
+          <div className="desktop-menu" style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
             <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>HOME</Link>
             <Link href="/about" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>ABOUT</Link>
             <Link href="/services" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>SERVICES</Link>
@@ -91,7 +105,8 @@ export default function Contact() {
             <Link href="/blog" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>BLOG</Link>
           </div>
 
-          <div style={{
+          {/* Desktop CTA Badge */}
+          <div className="desktop-cta" style={{
             padding: '12px 25px',
             background: 'linear-gradient(135deg, #FFD700, #FFA500)',
             borderRadius: '30px',
@@ -102,7 +117,73 @@ export default function Contact() {
           }}>
             CONTACT
           </div>
+
+          {/* Mobile Hamburger Button */}
+          <button 
+            className="mobile-menu-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              display: 'none',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '10px',
+              zIndex: 200
+            }}
+          >
+            <div style={{ width: '28px', height: '20px', position: 'relative' }}>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: menuOpen ? '8px' : '0',
+                transform: menuOpen ? 'rotate(45deg)' : 'none'
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: '8px',
+                opacity: menuOpen ? 0 : 1
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '28px',
+                height: '3px',
+                backgroundColor: '#FFD700',
+                borderRadius: '3px',
+                transition: 'all 0.3s',
+                top: menuOpen ? '8px' : '16px',
+                transform: menuOpen ? 'rotate(-45deg)' : 'none'
+              }}></div>
+            </div>
+          </button>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {menuOpen && (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            paddingTop: '30px',
+            paddingBottom: '20px',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            marginTop: '20px'
+          }}>
+            <Link href="/" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>HOME</Link>
+            <Link href="/about" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>ABOUT</Link>
+            <Link href="/services" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>SERVICES</Link>
+            <Link href="/portfolio" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>PORTFOLIO</Link>
+            <Link href="/blog" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>BLOG</Link>
+          </div>
+        )}
       </nav>
 
       {/* HERO SECTION */}
@@ -116,10 +197,10 @@ export default function Contact() {
       }}>
         <div style={{ width: '100%', padding: '0 5%' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+            <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
               {/* Left Content */}
-              <div>
-                <div style={{
+              <div className="hero-content">
+                <div className="hero-badge" style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '10px',
@@ -135,7 +216,7 @@ export default function Contact() {
                   </span>
                 </div>
 
-                <h1 style={{
+                <h1 className="hero-heading" style={{
                   fontSize: '72px',
                   fontWeight: '900',
                   color: 'white',
@@ -152,7 +233,7 @@ export default function Contact() {
                   }}>TOGETHER</span>
                 </h1>
 
-                <p style={{
+                <p className="hero-subtitle" style={{
                   fontSize: '20px',
                   color: 'rgba(255,255,255,0.6)',
                   marginBottom: '40px',
@@ -164,9 +245,9 @@ export default function Contact() {
                 </p>
 
                 {/* Quick Contact Options */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div className="quick-contacts" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   <a
-                    href="https://wa.me/8801712000000"
+                    href="https://wa.me/8801958140774"
                     target="_blank"
                     style={{
                       display: 'inline-flex',
@@ -189,7 +270,7 @@ export default function Contact() {
                   </a>
 
                   <a
-                    href="tel:+8801712000000"
+                    href="tel:+8801958140774"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -206,13 +287,13 @@ export default function Contact() {
                     }}
                   >
                     <span style={{ fontSize: '24px' }}>📞</span>
-                    +880 1712-000000
+                    +880 1958-140774
                   </a>
                 </div>
               </div>
 
               {/* Right - Stats */}
-              <div style={{
+              <div className="why-choose" style={{
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '30px',
                 padding: '50px',
@@ -247,6 +328,7 @@ export default function Contact() {
                       <div style={{
                         width: '50px',
                         height: '50px',
+                        flexShrink: 0,
                         borderRadius: '12px',
                         background: 'linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1))',
                         display: 'flex',
@@ -276,9 +358,9 @@ export default function Contact() {
       {/* CONTACT FORM SECTION */}
       <section style={{ padding: '100px 5%', backgroundColor: '#0F0F0F' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px' }}>
+          <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px' }}>
             {/* Left - Form */}
-            <div>
+            <div className="form-section">
               <div style={{
                 display: 'inline-block',
                 padding: '8px 20px',
@@ -291,7 +373,7 @@ export default function Contact() {
                 </span>
               </div>
 
-              <h2 style={{
+              <h2 className="form-heading" style={{
                 fontSize: '48px',
                 fontWeight: '900',
                 color: 'white',
@@ -313,7 +395,7 @@ export default function Contact() {
               </p>
 
               <form onSubmit={handleSubmit}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                   <input
                     type="text"
                     name="name"
@@ -338,7 +420,7 @@ export default function Contact() {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                   <input
                     type="tel"
                     name="phone"
@@ -383,10 +465,10 @@ export default function Contact() {
                     }}
                   >
                     <option value="" style={{ backgroundColor: '#0F0F0F' }}>Estimated Budget</option>
-                    <option value="below-50" style={{ backgroundColor: '#0F0F0F' }}>Below ₹50 Lac</option>
-                    <option value="50-1cr" style={{ backgroundColor: '#0F0F0F' }}>₹50 Lac - 1 Cr</option>
-                    <option value="1cr-5cr" style={{ backgroundColor: '#0F0F0F' }}>₹1 Cr - 5 Cr</option>
-                    <option value="above-5cr" style={{ backgroundColor: '#0F0F0F' }}>Above ₹5 Cr</option>
+                    <option value="below-50" style={{ backgroundColor: '#0F0F0F' }}>Below ৳50 Lac</option>
+                    <option value="50-1cr" style={{ backgroundColor: '#0F0F0F' }}>৳50 Lac - 1 Cr</option>
+                    <option value="1cr-5cr" style={{ backgroundColor: '#0F0F0F' }}>৳1 Cr - 5 Cr</option>
+                    <option value="above-5cr" style={{ backgroundColor: '#0F0F0F' }}>Above ৳5 Cr</option>
                   </select>
                 </div>
 
@@ -445,7 +527,7 @@ export default function Contact() {
             </div>
 
             {/* Right - Contact Info */}
-            <div>
+            <div className="info-section">
               <div style={{
                 background: 'linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05))',
                 borderRadius: '30px',
@@ -477,8 +559,8 @@ export default function Contact() {
                         Office Address
                       </div>
                       <div style={{ fontSize: '15px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.6' }}>
-                        House #45, Road #12<br />
-                        Banani, Dhaka 1213<br />
+                        Kazlar par, Jatrabari<br />
+                        Dhaka 1204<br />
                         Bangladesh
                       </div>
                     </div>
@@ -503,7 +585,7 @@ export default function Contact() {
                         Phone
                       </div>
                       <div style={{ fontSize: '15px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.6' }}>
-                        +880 1712-000000<br />
+                        +880 1958-140774<br />
                         +880 2-9876543
                       </div>
                     </div>
@@ -528,7 +610,7 @@ export default function Contact() {
                         Email
                       </div>
                       <div style={{ fontSize: '15px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.6' }}>
-                        hello@insaflimited.com<br />
+                        contact@insaflimited.com<br />
                         projects@insaflimited.com
                       </div>
                     </div>
@@ -571,7 +653,7 @@ export default function Contact() {
                 <h4 style={{ fontSize: '16px', fontWeight: '700', color: 'white', marginBottom: '20px' }}>
                   Follow Us
                 </h4>
-                <div style={{ display: 'flex', gap: '15px' }}>
+                <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
                   {['facebook', 'instagram', 'linkedin', 'youtube'].map((social, idx) => (
                     <a
                       key={idx}
@@ -608,8 +690,8 @@ export default function Contact() {
         backgroundColor: '#0A0A0A',
         background: 'radial-gradient(circle at 50% 50%, rgba(255,215,0,0.1), transparent 70%)'
       }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{
+        <div className="final-cta" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 className="cta-heading" style={{
             fontSize: '48px',
             fontWeight: '900',
             color: 'white',
@@ -626,9 +708,9 @@ export default function Contact() {
             Join 530+ satisfied clients who trusted us with their vision.
           </p>
 
-          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div className="cta-buttons-final" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href="https://wa.me/8801712000000"
+              href="https://wa.me/8801958140774"
               target="_blank"
               style={{
                 padding: '20px 40px',
@@ -646,7 +728,7 @@ export default function Contact() {
               💬 WHATSAPP NOW
             </a>
             <a
-              href="tel:+8801712000000"
+              href="tel:+8801958140774"
               style={{
                 padding: '20px 40px',
                 background: 'linear-gradient(135deg, #FFD700, #FFA500)',
@@ -682,7 +764,7 @@ export default function Contact() {
         borderTop: '1px solid rgba(255,255,255,0.1)'
       }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
+          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
             {/* Brand */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '25px' }}>
@@ -703,7 +785,7 @@ export default function Contact() {
                 </div>
               </div>
               <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', lineHeight: '1.8' }}>
-                Defining Bangladesh's skyline with architectural excellence since 2013.
+                Defining Bangladesh's skyline with architectural excellence since 2018.
               </p>
             </div>
 
@@ -720,10 +802,17 @@ export default function Contact() {
             {/* Quick Links */}
             <div>
               <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>QUICK LINKS</h4>
-              {['About Us', 'Portfolio', 'Blog', 'Contact'].map((item, idx) => (
-                <p key={idx} style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '12px' }}>
-                  {item}
-                </p>
+              {[
+                { name: 'About Us', link: '/about' },
+                { name: 'Portfolio', link: '/portfolio' },
+                { name: 'Blog', link: '/blog' },
+                { name: 'Contact', link: '/contact' }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.link} style={{ textDecoration: 'none', display: 'block' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '12px' }}>
+                    {item.name}
+                  </p>
+                </Link>
               ))}
             </div>
 
@@ -731,14 +820,27 @@ export default function Contact() {
             <div>
               <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>CONTACT</h4>
               <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>
-                📞 +880 1712-000000
+                📞 +880 1958-140774
               </p>
               <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>
-                ✉️ hello@insaflimited.com
+                ✉️ contact@insaflimited.com
               </p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px' }}>
-                📍 Banani, Dhaka 1213
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '20px' }}>
+                📍 Jatrabari, Dhaka 1204
               </p>
+              <button onClick={() => window.open('https://maps.app.goo.gl/6KuYrT1nowS4nao46', '_blank')} style={{
+                padding: '12px 25px',
+                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                border: 'none',
+                borderRadius: '30px',
+                color: '#000',
+                fontWeight: '700',
+                fontSize: '12px',
+                letterSpacing: '1px',
+                cursor: 'pointer'
+              }}>
+                GET DIRECTIONS
+              </button>
             </div>
           </div>
 
@@ -749,18 +851,178 @@ export default function Contact() {
             borderTop: '1px solid rgba(255,255,255,0.1)',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '20px'
           }}>
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
               © 2024 INSAF LIMITED. All rights reserved.
             </p>
-            <div style={{ display: 'flex', gap: '30px' }}>
+            <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
               <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Privacy Policy</a>
               <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Terms of Service</a>
             </div>
           </div>
         </div>
       </footer>
+
+      {/* Mobile Responsive CSS */}
+      <style>{`
+        body {
+          overflow-x: hidden !important;
+        }
+
+        .mobile-menu-btn {
+          display: none !important;
+        }
+
+        @media (max-width: 768px) {
+          /* Navigation */
+          nav {
+            width: 95% !important;
+            padding: 12px 20px !important;
+          }
+          
+          .desktop-menu {
+            display: none !important;
+          }
+          
+          .desktop-cta {
+            display: none !important;
+          }
+          
+          .mobile-menu-btn {
+            display: block !important;
+          }
+          
+          /* Hero Grid */
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+          
+          .hero-content {
+            text-align: center !important;
+          }
+          
+          .hero-badge {
+            margin: 0 auto 20px !important;
+          }
+          
+          .hero-heading {
+            font-size: 42px !important;
+            letter-spacing: -1px !important;
+          }
+          
+          .hero-subtitle {
+            margin: 0 auto 30px !important;
+            font-size: 16px !important;
+          }
+          
+          .quick-contacts {
+            align-items: center !important;
+          }
+          
+          .quick-contacts a {
+            width: 100% !important;
+            max-width: 350px !important;
+          }
+          
+          .why-choose {
+            padding: 30px 20px !important;
+          }
+          
+          /* Contact Grid */
+          .contact-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+          
+          .form-heading {
+            font-size: 32px !important;
+            text-align: center !important;
+          }
+          
+          .form-section > div:first-child {
+            margin: 0 auto 20px !important;
+          }
+          
+          .form-row {
+            grid-template-columns: 1fr !important;
+          }
+          
+          .info-section > div:first-child {
+            padding: 30px 20px !important;
+          }
+          
+          /* Final CTA */
+          .final-cta {
+            padding: 0 10px !important;
+          }
+          
+          .cta-heading {
+            font-size: 32px !important;
+          }
+          
+          .cta-buttons-final {
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+          
+          .cta-buttons-final a {
+            width: 100% !important;
+            max-width: 300px !important;
+            justify-content: center !important;
+          }
+          
+          /* Footer */
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            text-align: center !important;
+          }
+          
+          .footer-grid > div {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero-heading {
+            font-size: 32px !important;
+          }
+          
+          .form-heading {
+            font-size: 28px !important;
+          }
+          
+          .cta-heading {
+            font-size: 28px !important;
+          }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-heading {
+            font-size: 56px !important;
+          }
+          
+          .contact-grid {
+            gap: 50px !important;
+          }
+          
+          .footer-grid {
+            grid-template-columns: 2fr 1fr 1fr !important;
+          }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+          button, a {
+            min-height: 44px !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

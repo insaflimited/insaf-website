@@ -1,18 +1,13 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 
-interface NavLink {
-  name: string
-  href: string
-}
-
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
-  const [scrolled, setScrolled] = useState<boolean>(false)
-  const [logoError, setLogoError] = useState<boolean>(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [logoError, setLogoError] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -38,7 +33,7 @@ export default function Header() {
     }
   }, [isMenuOpen])
 
-  const navLinks: NavLink[] = [
+  const navLinks = [
     { name: 'HOME', href: '/' },
     { name: 'ABOUT', href: '/about' },
     { name: 'SERVICES', href: '/services' },
@@ -47,7 +42,6 @@ export default function Header() {
     { name: 'BLOG', href: '/blog' },
   ]
 
-  // ✅ Fixed orb positions (no Math.random)
   const orbPositions = [
     { top: '20%', left: '10%', size: '300px', delay: '0s' },
     { top: '60%', right: '10%', size: '250px', delay: '0.5s' }
@@ -75,6 +69,7 @@ export default function Header() {
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           
+          {/* LOGO */}
           <Link href="/" style={{ textDecoration: 'none', position: 'relative', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div className="logo-glow" style={{
               position: 'absolute',
@@ -169,6 +164,7 @@ export default function Header() {
             </div>
           </Link>
 
+          {/* DESKTOP MENU */}
           <div className="desktop-menu" style={{ 
             display: 'flex', 
             gap: '30px', 
@@ -229,6 +225,7 @@ export default function Header() {
             ))}
           </div>
 
+          {/* DESKTOP CTA */}
           <Link href="/contact" className="desktop-button" style={{ textDecoration: 'none' }}>
             <button style={{
               padding: '12px 25px',
@@ -261,6 +258,7 @@ export default function Header() {
             </button>
           </Link>
 
+          {/* MOBILE MENU BUTTON */}
           <button 
             className="mobile-menu-btn"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -318,6 +316,7 @@ export default function Header() {
         </div>
       </nav>
 
+      {/* MOBILE MENU OVERLAY */}
       <div 
         style={{
           position: 'fixed',
@@ -340,7 +339,6 @@ export default function Header() {
         }}
         onClick={() => setIsMenuOpen(false)}
       >
-        {/* ✅ FIXED Background Orbs - No Math.random */}
         {isMenuOpen && orbPositions.map((orb, idx) => (
           <div 
             key={idx}
@@ -351,7 +349,7 @@ export default function Header() {
               right: orb.right,
               width: orb.size,
               height: orb.size,
-              background: `radial-gradient(circle, rgba(255,215,0,0.1), transparent 70%)`,
+              background: 'radial-gradient(circle, rgba(255,215,0,0.1), transparent 70%)',
               borderRadius: '50%',
               filter: 'blur(60px)',
               animation: `floatOrb 8s ease-in-out ${orb.delay} infinite`

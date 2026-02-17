@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatPhoneNumber(phone: string): string {
-  // +880 1XXX-XXXXXX format
+  // +880 1958-140774 format
   return phone.replace(/(\d{3})(\d{4})(\d{4})/, '+$1 $2-$3')
 }
 

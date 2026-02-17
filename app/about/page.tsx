@@ -1,9 +1,22 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 export default function About() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+    
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div style={{ 
@@ -13,155 +26,6 @@ export default function About() {
       overflow: 'hidden',
       overflowX: 'hidden' 
     }}>
-      
-      {/* FLOATING NAVBAR - Mobile Responsive */}
-      <nav style={{
-        position: 'fixed',
-        top: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '90%',
-        maxWidth: '1200px',
-        zIndex: 100,
-        backgroundColor: 'rgba(255,255,255,0.08)',
-        backdropFilter: 'blur(20px)',
-        borderRadius: '20px',
-        border: '1px solid rgba(255,255,255,0.1)',
-        padding: '15px 30px'
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {/* Logo */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
-              width: '45px',
-              height: '45px',
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 30px rgba(255,215,0,0.5)'
-            }}>
-              <span style={{ color: '#0A0A0A', fontWeight: 'bold', fontSize: '24px' }}>I</span>
-            </div>
-            <div>
-              <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
-              <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
-            </div>
-          </Link>
-
-          {/* Desktop Menu */}
-          <div className="desktop-menu" style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
-            <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>HOME</Link>
-            <Link href="/about" style={{ color: '#FFD700', textDecoration: 'none' }}>ABOUT</Link>
-            <Link href="/services" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>SERVICES</Link>
-            <Link href="/portfolio" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>PORTFOLIO</Link>
-            <Link href="/blog" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>BLOG</Link>
-          </div>
-
-          {/* Desktop CTA */}
-          <Link href="/contact" className="desktop-cta">
-            <button style={{
-              padding: '12px 25px',
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-              border: 'none',
-              borderRadius: '30px',
-              color: '#0A0A0A',
-              fontWeight: '700',
-              fontSize: '13px',
-              letterSpacing: '1px',
-              cursor: 'pointer',
-              boxShadow: '0 0 30px rgba(255,215,0,0.3)'
-            }}>
-              CONTACT US →
-            </button>
-          </Link>
-
-          {/* Mobile Hamburger Button */}
-          <button 
-            className="mobile-menu-btn"
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              display: 'none',
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '10px',
-              zIndex: 200
-            }}
-          >
-            <div style={{ width: '28px', height: '20px', position: 'relative' }}>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                transition: 'all 0.3s',
-                top: menuOpen ? '8px' : '0',
-                transform: menuOpen ? 'rotate(45deg)' : 'none'
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                transition: 'all 0.3s',
-                top: '8px',
-                opacity: menuOpen ? 0 : 1
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                transition: 'all 0.3s',
-                top: menuOpen ? '8px' : '16px',
-                transform: menuOpen ? 'rotate(-45deg)' : 'none'
-              }}></div>
-            </div>
-          </button>
-        </div>
-
-        {/* Mobile Menu Dropdown */}
-        {menuOpen && (
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            paddingTop: '30px',
-            paddingBottom: '20px',
-            borderTop: '1px solid rgba(255,255,255,0.1)',
-            marginTop: '20px'
-          }}>
-            <Link href="/" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>HOME</Link>
-            <Link href="/about" onClick={() => setMenuOpen(false)} style={{ color: '#FFD700', textDecoration: 'none', fontSize: '18px', fontWeight: '600' }}>ABOUT</Link>
-            <Link href="/services" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>SERVICES</Link>
-            <Link href="/portfolio" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>PORTFOLIO</Link>
-            <Link href="/blog" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>BLOG</Link>
-            
-            <Link href="/contact" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none' }}>
-              <button style={{
-                marginTop: '10px',
-                padding: '15px 30px',
-                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-                border: 'none',
-                borderRadius: '30px',
-                color: '#0A0A0A',
-                fontWeight: '700',
-                fontSize: '14px',
-                letterSpacing: '1px',
-                cursor: 'pointer',
-                width: '100%'
-              }}>
-                CONTACT US →
-              </button>
-            </Link>
-          </div>
-        )}
-      </nav>
 
       {/* HERO SECTION */}
       <section style={{
@@ -170,9 +34,11 @@ export default function About() {
         alignItems: 'center',
         background: 'radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 50%)',
         paddingTop: '120px',
-        paddingBottom: '60px'
+        paddingBottom: '60px',
+        position: 'relative'
       }}>
-        <div style={{ width: '100%', padding: '0 5%' }}>
+
+        <div style={{ width: '100%', padding: '0 5%', position: 'relative', zIndex: 2 }}>
           <div className="hero-grid" style={{ 
             maxWidth: '1400px', 
             margin: '0 auto', 
@@ -183,7 +49,11 @@ export default function About() {
           }}>
             
             {/* Left Content */}
-            <div className="hero-content">
+            <div className="hero-content" style={{
+              opacity: isLoaded ? 1 : 0,
+              transform: isLoaded ? 'translateX(0)' : 'translateX(-50px)',
+              transition: 'all 1s ease-out'
+            }}>
               <div className="hero-badge" style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -192,9 +62,10 @@ export default function About() {
                 backgroundColor: 'rgba(255,215,0,0.1)',
                 border: '1px solid rgba(255,215,0,0.3)',
                 borderRadius: '50px',
-                marginBottom: '30px'
+                marginBottom: '30px',
+                animation: 'fadeInDown 0.8s ease-out'
               }}>
-                <div style={{ width: '8px', height: '8px', backgroundColor: '#FFD700', borderRadius: '50%' }}></div>
+                <div className="pulse-dot" style={{ width: '8px', height: '8px', backgroundColor: '#FFD700', borderRadius: '50%' }}></div>
                 <span style={{ color: '#FFD700', fontSize: '12px', letterSpacing: '2px', fontWeight: '600' }}>EST. 2018</span>
               </div>
 
@@ -206,15 +77,16 @@ export default function About() {
                 marginBottom: '30px',
                 letterSpacing: '-2px'
               }}>
-                CRAFTING
+                <span className="text-reveal">CRAFTING</span>
                 <br />
-                <span style={{
+                <span className="gradient-text" style={{
                   background: 'linear-gradient(135deg, #FFD700, #FFA500)',
                   WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
+                  WebkitTextFillColor: 'transparent',
+                  display: 'inline-block'
                 }}>EXCELLENCE</span>
                 <br />
-                SINCE 2018
+                <span className="text-reveal" style={{ animationDelay: '0.4s' }}>SINCE 2018</span>
               </h1>
 
               <p className="hero-subtitle" style={{
@@ -222,31 +94,42 @@ export default function About() {
                 color: 'rgba(255,255,255,0.6)',
                 lineHeight: '1.8',
                 marginBottom: '40px',
-                maxWidth: '500px'
+                maxWidth: '500px',
+                opacity: isLoaded ? 1 : 0,
+                transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
+                transition: 'all 1s ease-out 0.5s'
               }}>
                 From a vision to redefine architectural standards to becoming Bangladesh's 
                 most trusted name in luxury design and structural excellence.
               </p>
 
               <div className="stats-row" style={{ display: 'flex', gap: '40px', marginBottom: '40px', flexWrap: 'wrap' }}>
-                <div className="stat-item">
-                  <div style={{ fontSize: '42px', fontWeight: '900', color: '#FFD700' }}>530+</div>
-                  <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', letterSpacing: '1px' }}>PROJECTS</div>
-                </div>
-                <div className="stat-item">
-                  <div style={{ fontSize: '42px', fontWeight: '900', color: '#FFD700' }}>8+</div>
-                  <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', letterSpacing: '1px' }}>YEARS</div>
-                </div>
-                <div className="stat-item">
-                  <div style={{ fontSize: '42px', fontWeight: '900', color: '#FFD700' }}>25+</div>
-                  <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', letterSpacing: '1px' }}>TEAM</div>
-                </div>
+                {[
+                  { num: '530+', label: 'PROJECTS', delay: '0.6s' },
+                  { num: '8+', label: 'YEARS', delay: '0.8s' },
+                  { num: '25+', label: 'TEAM', delay: '1s' }
+                ].map((stat, idx) => (
+                  <div key={idx} className="stat-item" style={{
+                    opacity: isLoaded ? 1 : 0,
+                    transform: isLoaded ? 'translateY(0)' : 'translateY(30px)',
+                    transition: `all 0.8s ease-out ${stat.delay}`
+                  }}>
+                    <div className="stat-number" style={{ fontSize: '42px', fontWeight: '900', color: '#FFD700' }}>{stat.num}</div>
+                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', letterSpacing: '1px' }}>{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Right Visual - Hidden on Mobile */}
-            <div className="hero-visual" style={{ position: 'relative', height: '600px' }}>
-              <div style={{
+            <div className="hero-visual" style={{ 
+              position: 'relative', 
+              height: '600px',
+              opacity: isLoaded ? 1 : 0,
+              transform: isLoaded ? 'translateX(0)' : 'translateX(50px)',
+              transition: 'all 1s ease-out 0.3s'
+            }}>
+              <div className="floating-card" style={{
                 position: 'absolute',
                 top: '50px',
                 right: '100px',
@@ -257,16 +140,16 @@ export default function About() {
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255,215,0,0.2)',
                 padding: '40px',
-                transform: 'rotate(-5deg)'
+                boxShadow: '0 25px 50px rgba(0,0,0,0.3)'
               }}>
-                <div style={{ color: '#FFD700', fontSize: '80px', fontWeight: '900', marginBottom: '20px' }}>8</div>
+                <div className="number-animate" style={{ color: '#FFD700', fontSize: '80px', fontWeight: '900', marginBottom: '20px' }}>8</div>
                 <div style={{ color: 'white', fontSize: '24px', fontWeight: '700', marginBottom: '15px' }}>Years of Excellence</div>
                 <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '15px', lineHeight: '1.6' }}>
                   Leading Bangladesh's architectural revolution with innovative design and unwavering commitment to quality.
                 </div>
               </div>
 
-              <div style={{
+              <div className="glow-orb" style={{
                 position: 'absolute',
                 bottom: '50px',
                 right: '150px',
@@ -282,17 +165,17 @@ export default function About() {
       </section>
 
       {/* STORY SECTION */}
-      <section style={{ padding: '120px 5%', backgroundColor: '#0F0F0F' }}>
+      <section className="fade-in-section" style={{ padding: '120px 5%', backgroundColor: '#0F0F0F' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-            <div style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>OUR STORY</div>
+            <div className="section-label" style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>OUR STORY</div>
             <h2 className="section-heading" style={{ fontSize: '56px', fontWeight: '900', color: 'white', letterSpacing: '-1px' }}>
               THE <span style={{ color: '#FFD700' }}>JOURNEY</span>
             </h2>
           </div>
 
           <div className="story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px' }}>
-            <div>
+            <div className="slide-in-left">
               <h3 style={{ fontSize: '32px', fontWeight: '800', color: 'white', marginBottom: '30px' }}>
                 From Vision to Reality
               </h3>
@@ -311,7 +194,7 @@ export default function About() {
               </p>
             </div>
 
-            <div style={{
+            <div className="slide-in-right achievement-card" style={{
               background: 'linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,165,0,0.02))',
               borderRadius: '30px',
               padding: '50px',
@@ -327,14 +210,15 @@ export default function About() {
                 { year: '2022', title: 'Team Expansion', desc: 'Grew to 25+ professionals' },
                 { year: '2024', title: '500+ Projects', desc: 'Became industry leader' }
               ].map((achievement, idx) => (
-                <div key={idx} style={{
+                <div key={idx} className="timeline-item" style={{
                   display: 'flex',
                   gap: '20px',
                   marginBottom: '25px',
                   paddingBottom: '25px',
-                  borderBottom: idx < 4 ? '1px solid rgba(255,255,255,0.1)' : 'none'
+                  borderBottom: idx < 4 ? '1px solid rgba(255,255,255,0.1)' : 'none',
+                  animationDelay: `${idx * 0.1}s`
                 }}>
-                  <div style={{
+                  <div className="year-badge" style={{
                     width: '60px',
                     flexShrink: 0,
                     color: '#FFD700',
@@ -357,10 +241,10 @@ export default function About() {
       </section>
 
       {/* TEAM SECTION */}
-      <section style={{ padding: '120px 5%', backgroundColor: '#0A0A0A' }}>
+      <section className="fade-in-section" style={{ padding: '120px 5%', backgroundColor: '#0A0A0A' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-            <div style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>THE TEAM</div>
+            <div className="section-label" style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>THE TEAM</div>
             <h2 className="section-heading" style={{ fontSize: '56px', fontWeight: '900', color: 'white', letterSpacing: '-1px' }}>
               MEET THE <span style={{ color: '#FFD700' }}>EXPERTS</span>
             </h2>
@@ -373,16 +257,16 @@ export default function About() {
               { name: 'Ar. Sarah Ahmed', role: 'Senior Architect', exp: '8+ years', specialty: 'Commercial Design' },
               { name: 'Ar. Nabila Islam', role: 'Interior Designer', exp: '6+ years', specialty: 'Spatial Planning' }
             ].map((member, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="team-card" style={{
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '20px',
                 padding: '35px',
                 border: '1px solid rgba(255,255,255,0.1)',
                 textAlign: 'center',
-                transition: 'all 0.3s',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                animationDelay: `${idx * 0.15}s`
               }}>
-                <div style={{
+                <div className="avatar-glow" style={{
                   width: '120px',
                   height: '120px',
                   borderRadius: '50%',
@@ -392,7 +276,8 @@ export default function About() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   border: '2px solid rgba(255,215,0,0.3)',
-                  fontSize: '48px'
+                  fontSize: '48px',
+                  position: 'relative'
                 }}>
                   👤
                 </div>
@@ -401,7 +286,7 @@ export default function About() {
                 </h3>
                 <div style={{ fontSize: '14px', color: '#FFD700', marginBottom: '5px' }}>{member.role}</div>
                 <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '10px' }}>{member.exp}</div>
-                <div style={{
+                <div className="specialty-tag" style={{
                   fontSize: '11px',
                   color: 'rgba(255,255,255,0.4)',
                   padding: '6px 12px',
@@ -418,10 +303,10 @@ export default function About() {
       </section>
 
       {/* VALUES SECTION - BENTO GRID */}
-      <section style={{ padding: '120px 5%', backgroundColor: '#0F0F0F' }}>
+      <section className="fade-in-section" style={{ padding: '120px 5%', backgroundColor: '#0F0F0F' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-            <div style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>OUR VALUES</div>
+            <div className="section-label" style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>OUR VALUES</div>
             <h2 className="section-heading" style={{ fontSize: '56px', fontWeight: '900', color: 'white', letterSpacing: '-1px' }}>
               WHAT WE <span style={{ color: '#FFD700' }}>STAND FOR</span>
             </h2>
@@ -436,15 +321,15 @@ export default function About() {
               { icon: '🏆', title: 'Leadership', desc: 'Setting industry standards', color: 'rgba(255,215,0,0.08)' },
               { icon: '🌱', title: 'Sustainability', desc: 'Eco-conscious design solutions', color: 'rgba(255,165,0,0.08)' }
             ].map((value, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="value-card" style={{
                 background: value.color,
                 borderRadius: '25px',
                 padding: '50px',
                 border: '1px solid rgba(255,215,0,0.2)',
-                transition: 'all 0.3s',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                animationDelay: `${idx * 0.1}s`
               }}>
-                <div style={{ fontSize: '60px', marginBottom: '25px' }}>{value.icon}</div>
+                <div className="icon-bounce" style={{ fontSize: '60px', marginBottom: '25px' }}>{value.icon}</div>
                 <h3 style={{ fontSize: '24px', fontWeight: '800', color: 'white', marginBottom: '15px' }}>
                   {value.title}
                 </h3>
@@ -458,12 +343,19 @@ export default function About() {
       </section>
 
       {/* CTA SECTION */}
-      <section style={{
+      <section className="fade-in-section" style={{
         padding: '120px 5%',
         backgroundColor: '#0A0A0A',
-        background: 'radial-gradient(circle at 50% 50%, rgba(255,215,0,0.1), transparent 70%)'
+        background: 'radial-gradient(circle at 50% 50%, rgba(255,215,0,0.1), transparent 70%)',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
-        <div className="cta-content" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+        {/* Animated rings */}
+        <div className="cta-ring ring-1"></div>
+        <div className="cta-ring ring-2"></div>
+        <div className="cta-ring ring-3"></div>
+
+        <div className="cta-content" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }}>
           <h2 className="cta-heading" style={{
             fontSize: '56px',
             fontWeight: '900',
@@ -473,7 +365,7 @@ export default function About() {
           }}>
             Ready to Build Your
             <br />
-            <span style={{
+            <span className="shimmer-text" style={{
               background: 'linear-gradient(135deg, #FFD700, #FFA500)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
@@ -490,7 +382,7 @@ export default function About() {
           </p>
           <div className="cta-buttons-final" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/contact">
-              <button style={{
+              <button className="btn-glow" style={{
                 padding: '20px 50px',
                 background: 'linear-gradient(135deg, #FFD700, #FFA500)',
                 border: 'none',
@@ -500,12 +392,13 @@ export default function About() {
                 fontSize: '16px',
                 letterSpacing: '1px',
                 cursor: 'pointer',
-                boxShadow: '0 30px 60px rgba(255,215,0,0.4)'
+                position: 'relative',
+                overflow: 'hidden'
               }}>
-                START YOUR PROJECT →
+                <span style={{ position: 'relative', zIndex: 2 }}>START YOUR PROJECT →</span>
               </button>
             </Link>
-            <a href="https://wa.me/8801958140774" style={{
+            <a href="https://wa.me/8801958140774" className="btn-whatsapp" style={{
               padding: '20px 40px',
               background: '#25D366',
               border: 'none',
@@ -526,188 +419,323 @@ export default function About() {
         </div>
       </section>
 
-      {/* FOOTER - COMPLETE */}
-      <footer style={{ 
-        padding: '80px 5%', 
-        backgroundColor: '#000',
-        borderTop: '1px solid rgba(255,255,255,0.1)',
-        fontFamily: 'system-ui, sans-serif'
-      }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
-            
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '25px' }}>
-                <div style={{
-                  width: '50px',
-                  height: '50px',
-                  background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-                  borderRadius: '15px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <span style={{ color: '#000', fontWeight: 'bold', fontSize: '28px' }}>I</span>
-                </div>
-                <div>
-                  <div style={{ fontSize: '24px', fontWeight: '900', color: 'white' }}>INSAF</div>
-                  <div style={{ fontSize: '11px', color: '#FFD700', letterSpacing: '3px' }}>ARCHITECTS</div>
-                </div>
-              </div>
-              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', lineHeight: '1.8', marginBottom: '30px' }}>
-                Defining Bangladesh's skyline with architectural excellence and structural precision since 2018.
-              </p>
-              
-              <div style={{ display: 'flex', gap: '15px' }}>
-                {['facebook', 'instagram', 'linkedin', 'youtube'].map((social, idx) => (
-                  <div key={idx} style={{
-                    width: '40px',
-                    height: '40px',
-                    backgroundColor: 'rgba(255,255,255,0.05)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    cursor: 'pointer'
-                  }}>
-                    <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>
-                      {social[0].toUpperCase()}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>SERVICES</h4>
-              {['Architecture', 'Structure', 'RAJUK Approval', 'Interior', 'Landscape'].map((item, idx) => (
-                <p key={idx} style={{ 
-                  color: 'rgba(255,255,255,0.5)', 
-                  fontSize: '14px', 
-                  marginBottom: '12px',
-                  cursor: 'pointer'
-                }}>
-                  {item}
-                </p>
-              ))}
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>QUICK LINKS</h4>
-              {[
-                { name: 'About Us', link: '/about' },
-                { name: 'Portfolio', link: '/portfolio' },
-                { name: 'Services', link: '/services' },
-                { name: 'Blog', link: '/blog' },
-                { name: 'Contact', link: '/contact' }
-              ].map((item, idx) => (
-                <Link key={idx} href={item.link} style={{ textDecoration: 'none', display: 'block' }}>
-                  <p style={{ 
-                    color: 'rgba(255,255,255,0.5)', 
-                    fontSize: '14px', 
-                    marginBottom: '12px',
-                    cursor: 'pointer'
-                  }}>
-                    {item.name}
-                  </p>
-                </Link>
-              ))}
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>CONTACT</h4>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>
-                📞 +880 1958-140774
-              </p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>
-                ✉️ contact@insaflimited.com
-              </p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '20px' }}>
-                📍 Kazlar par, Jatrabari, Dhaka 1204
-              </p>
-              <button onClick={() => window.open('https://maps.app.goo.gl/6KuYrT1nowS4nao46', '_blank')} style={{
-                padding: '12px 25px',
-                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-                border: 'none',
-                borderRadius: '30px',
-                color: '#000',
-                fontWeight: '700',
-                fontSize: '12px',
-                letterSpacing: '1px',
-                cursor: 'pointer'
-              }}>
-                GET DIRECTIONS
-              </button>
-            </div>
-          </div>
-
-          <div style={{ 
-            marginTop: '80px', 
-            paddingTop: '30px',
-            borderTop: '1px solid rgba(255,255,255,0.1)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '20px'
-          }}>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
-              © 2024 INSAF LIMITED. All rights reserved.
-            </p>
-            <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
-              <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Privacy Policy</a>
-              <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Terms of Service</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
       {/* CSS Animations + Mobile Responsive Styles */}
       <style>{`
+        /* ========== KEYFRAME ANIMATIONS ========== */
         @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.2); }
         }
         
         @keyframes float {
           0%, 100% { transform: translateY(0) rotate(-5deg); }
-          50% { transform: translateY(-20px) rotate(-5deg); }
+          50% { transform: translateY(-20px) rotate(-3deg); }
         }
 
-        /* Prevent horizontal scroll */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+          50% { box-shadow: 0 0 40px rgba(255,215,0,0.6), 0 0 60px rgba(255,215,0,0.3); }
+        }
+
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+
+        @keyframes orbFloat {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(20px, -20px) scale(1.1); }
+          50% { transform: translate(0, -40px) scale(1); }
+          75% { transform: translate(-20px, -20px) scale(0.9); }
+        }
+
+        @keyframes ringPulse {
+          0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+          50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.2; }
+          100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+        }
+
+        @keyframes iconBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes textReveal {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+          }
+        }
+
+        @keyframes borderGlow {
+          0%, 100% { border-color: rgba(255,215,0,0.2); }
+          50% { border-color: rgba(255,215,0,0.5); }
+        }
+
+        /* ========== ELEMENT ANIMATIONS ========== */
+        
+        /* Pulse Dot */
+        .pulse-dot {
+          animation: pulse 2s infinite;
+        }
+
+        /* Floating Card */
+        .floating-card {
+          animation: float 6s ease-in-out infinite;
+        }
+
+        /* Glow Orb */
+        .glow-orb {
+          animation: orbFloat 8s ease-in-out infinite;
+        }
+
+        /* Text Reveal */
+        .text-reveal {
+          display: inline-block;
+          animation: textReveal 1s ease-out forwards;
+          opacity: 0;
+        }
+
+        /* Gradient Text Shimmer */
+        .gradient-text {
+          background-size: 200% auto;
+          animation: shimmer 3s linear infinite;
+        }
+
+        /* Stat Number Animation */
+        .stat-number {
+          transition: all 0.3s ease;
+        }
+        .stat-item:hover .stat-number {
+          transform: scale(1.1);
+          text-shadow: 0 0 30px rgba(255,215,0,0.5);
+        }
+
+        /* Section Animations */
+        .fade-in-section {
+          animation: fadeInUp 1s ease-out;
+        }
+
+        .slide-in-left {
+          animation: slideInLeft 1s ease-out;
+        }
+
+        .slide-in-right {
+          animation: slideInRight 1s ease-out;
+        }
+
+        .section-label {
+          animation: fadeInDown 0.8s ease-out;
+        }
+
+        .section-heading {
+          animation: fadeInUp 1s ease-out;
+        }
+
+        /* Timeline Item */
+        .timeline-item {
+          animation: fadeInUp 0.6s ease-out forwards;
+          opacity: 0;
+        }
+
+        .year-badge {
+          transition: all 0.3s ease;
+        }
+        .timeline-item:hover .year-badge {
+          transform: scale(1.1);
+          text-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+
+        /* Team Card */
+        .team-card {
+          animation: scaleIn 0.6s ease-out forwards;
+          opacity: 0;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .team-card:hover {
+          transform: translateY(-15px) scale(1.02);
+          border-color: rgba(255,215,0,0.4);
+          box-shadow: 0 25px 50px rgba(0,0,0,0.3), 0 0 30px rgba(255,215,0,0.1);
+        }
+
+        /* Avatar Glow */
+        .avatar-glow {
+          transition: all 0.4s ease;
+        }
+        .team-card:hover .avatar-glow {
+          animation: glow 2s infinite;
+          transform: scale(1.1);
+        }
+
+        /* Specialty Tag */
+        .specialty-tag {
+          transition: all 0.3s ease;
+        }
+        .team-card:hover .specialty-tag {
+          background-color: rgba(255,215,0,0.2);
+          color: #FFD700;
+        }
+
+        /* Value Card */
+        .value-card {
+          animation: scaleIn 0.6s ease-out forwards;
+          opacity: 0;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .value-card:hover {
+          transform: translateY(-10px) scale(1.03);
+          border-color: rgba(255,215,0,0.5);
+          box-shadow: 0 30px 60px rgba(0,0,0,0.3), 0 0 40px rgba(255,215,0,0.15);
+        }
+
+        /* Icon Bounce */
+        .icon-bounce {
+          transition: all 0.3s ease;
+        }
+        .value-card:hover .icon-bounce {
+          animation: iconBounce 0.5s ease;
+          transform: scale(1.2);
+        }
+
+        /* Achievement Card */
+        .achievement-card {
+          animation: borderGlow 3s infinite;
+        }
+
+        /* CTA Rings */
+        .cta-ring {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          border: 1px solid rgba(255,215,0,0.1);
+          border-radius: 50%;
+          animation: ringPulse 4s ease-in-out infinite;
+        }
+        .ring-1 {
+          width: 300px;
+          height: 300px;
+        }
+        .ring-2 {
+          width: 500px;
+          height: 500px;
+          animation-delay: 0.5s;
+        }
+        .ring-3 {
+          width: 700px;
+          height: 700px;
+          animation-delay: 1s;
+        }
+
+        /* Button Glow */
+        .btn-glow {
+          transition: all 0.4s ease;
+          box-shadow: 0 20px 40px rgba(255,215,0,0.3);
+        }
+        .btn-glow:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 30px 60px rgba(255,215,0,0.5);
+        }
+        .btn-glow::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          transition: 0.5s;
+        }
+        .btn-glow:hover::before {
+          left: 100%;
+        }
+
+        /* WhatsApp Button */
+        .btn-whatsapp {
+          transition: all 0.4s ease;
+          box-shadow: 0 15px 30px rgba(37,211,102,0.3);
+        }
+        .btn-whatsapp:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 25px 50px rgba(37,211,102,0.4);
+        }
+
+        /* Shimmer Text */
+        .shimmer-text {
+          background-size: 200% auto;
+          animation: shimmer 3s linear infinite;
+        }
+
+        /* ========== RESPONSIVE ========== */
         body {
           overflow-x: hidden !important;
         }
 
-        /* Hide mobile menu button by default */
         .mobile-menu-btn {
           display: none !important;
         }
 
-        /* Mobile Devices (768px and below) */
         @media (max-width: 768px) {
-          
-          /* Navigation */
-          nav {
-            width: 95% !important;
-            padding: 12px 20px !important;
-            top: 10px !important;
-          }
-          
-          .desktop-menu {
-            display: none !important;
-          }
-          
-          .desktop-cta {
-            display: none !important;
-          }
-          
-          .mobile-menu-btn {
-            display: block !important;
-          }
-          
-          /* Hero Section */
           .hero-grid {
             grid-template-columns: 1fr !important;
             gap: 30px !important;
@@ -748,31 +776,26 @@ export default function About() {
             text-align: center !important;
           }
           
-          /* Story Grid */
           .story-grid {
             grid-template-columns: 1fr !important;
             gap: 40px !important;
           }
           
-          /* Section Headings */
           .section-heading {
             font-size: 32px !important;
             text-align: center !important;
           }
           
-          /* Team Grid */
           .team-grid {
             grid-template-columns: 1fr 1fr !important;
             gap: 20px !important;
           }
           
-          /* Values Grid */
           .values-grid {
             grid-template-columns: 1fr !important;
             gap: 20px !important;
           }
           
-          /* CTA Section */
           .cta-content {
             padding: 40px 20px !important;
           }
@@ -794,21 +817,11 @@ export default function About() {
             justify-content: center !important;
           }
           
-          /* Footer */
-          .footer-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-            text-align: center !important;
-          }
-          
-          .footer-grid > div {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
+          .cta-ring {
+            display: none;
           }
         }
 
-        /* Small Mobile (480px and below) */
         @media (max-width: 480px) {
           .hero-heading {
             font-size: 32px !important;
@@ -826,13 +839,11 @@ export default function About() {
             font-size: 28px !important;
           }
           
-          /* Team Grid - 1 column on very small screens */
           .team-grid {
             grid-template-columns: 1fr !important;
           }
         }
 
-        /* Tablet (769px - 1024px) */
         @media (min-width: 769px) and (max-width: 1024px) {
           .hero-heading {
             font-size: 56px !important;
@@ -845,13 +856,8 @@ export default function About() {
           .values-grid {
             grid-template-columns: 1fr 1fr !important;
           }
-          
-          .footer-grid {
-            grid-template-columns: 2fr 1fr 1fr !important;
-          }
         }
 
-        /* Touch Device Optimizations */
         @media (hover: none) and (pointer: coarse) {
           button, a {
             min-height: 44px !important;

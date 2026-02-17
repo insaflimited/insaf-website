@@ -1,9 +1,16 @@
+'use client'
+import { useState, useEffect } from 'react'
 import { blogs } from '@/lib/data/blogs'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
 export default function BlogDetailPage({ params }: { params: { slug: string } }) {
   const post = blogs.find(b => b.slug === params.slug)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
 
   if (!post) notFound()
 
@@ -13,119 +20,37 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
       minHeight: '100vh',
       overflowX: 'hidden' 
     }}>
-      {/* FLOATING NAVBAR */}
-      <nav style={{
-        position: 'fixed',
-        top: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '90%',
-        maxWidth: '1200px',
-        zIndex: 100,
-        backgroundColor: 'rgba(255,255,255,0.08)',
-        backdropFilter: 'blur(20px)',
-        borderRadius: '20px',
-        border: '1px solid rgba(255,255,255,0.1)',
-        padding: '15px 30px'
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {/* Logo */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
-              width: '45px',
-              height: '45px',
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 30px rgba(255,215,0,0.5)'
-            }}>
-              <span style={{ color: '#0A0A0A', fontWeight: 'bold', fontSize: '24px' }}>I</span>
-            </div>
-            <div>
-              <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
-              <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
-            </div>
-          </Link>
 
-          {/* Desktop Menu */}
-          <div className="desktop-menu" style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
-            <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>HOME</Link>
-            <Link href="/about" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>ABOUT</Link>
-            <Link href="/services" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>SERVICES</Link>
-            <Link href="/portfolio" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>PORTFOLIO</Link>
-            <Link href="/blog" style={{ color: '#FFD700', textDecoration: 'none' }}>BLOG</Link>
-          </div>
-
-          {/* Desktop CTA */}
-          <Link href="/contact" className="desktop-cta">
-            <button style={{
-              padding: '12px 25px',
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-              border: 'none',
-              borderRadius: '30px',
-              color: '#0A0A0A',
-              fontWeight: '700',
-              fontSize: '13px',
-              letterSpacing: '1px',
-              cursor: 'pointer',
-              boxShadow: '0 0 30px rgba(255,215,0,0.3)'
-            }}>
-              CONTACT US →
-            </button>
-          </Link>
-
-          {/* Mobile Menu Button */}
-          <button className="mobile-menu-btn" style={{
-            display: 'none',
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '10px'
-          }}>
-            <div style={{ width: '28px', height: '20px', position: 'relative' }}>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                top: '0'
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                top: '8px'
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                top: '16px'
-              }}></div>
-            </div>
-          </button>
-        </div>
-      </nav>
+      {/* Animated Background Particles */}
+      <div className="particles">
+        {[...Array(15)].map((_, i) => (
+          <div key={i} className="particle" style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 5}s`,
+            animationDuration: `${15 + Math.random() * 10}s`
+          }}></div>
+        ))}
+      </div>
 
       {/* Article Header */}
       <header className="article-header" style={{ 
-        paddingTop: '140px',
+        paddingTop: '80px',
         paddingBottom: '60px',
         paddingLeft: '20px',
         paddingRight: '20px',
         textAlign: 'center', 
-        background: 'radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 50%)'
+        background: 'radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 50%)',
+        position: 'relative'
       }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ 
+          maxWidth: '900px', 
+          margin: '0 auto',
+          opacity: isLoaded ? 1 : 0,
+          transform: isLoaded ? 'translateY(0)' : 'translateY(30px)',
+          transition: 'all 0.8s ease-out'
+        }}>
           {/* Back Button */}
-          <Link href="/blog" style={{
+          <Link href="/blog" className="back-btn" style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
@@ -137,20 +62,22 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
             fontSize: '13px',
             fontWeight: '600',
             textDecoration: 'none',
-            marginBottom: '30px',
-            transition: 'all 0.3s'
+            marginBottom: '30px'
           }}>
             <span style={{ fontSize: '16px' }}>←</span>
             BACK TO BLOG
           </Link>
 
           {/* Category Badge */}
-          <div style={{
+          <div className="category-badge" style={{
             display: 'inline-block',
             padding: '8px 20px',
             backgroundColor: 'rgba(255,215,0,0.2)',
             borderRadius: '30px',
-            marginBottom: '25px'
+            marginBottom: '25px',
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 0.8s ease-out 0.1s'
           }}>
             <span style={{ 
               color: '#FFD700', 
@@ -170,7 +97,10 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
             lineHeight: '1.2',
             color: 'white',
             letterSpacing: '-1px',
-            marginBottom: '30px'
+            marginBottom: '30px',
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? 'translateY(0)' : 'translateY(30px)',
+            transition: 'all 1s ease-out 0.2s'
           }}>
             {post.title}
           </h1>
@@ -183,7 +113,10 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
             gap: '30px', 
             color: 'rgba(255,255,255,0.6)',
             fontSize: '15px',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 0.8s ease-out 0.4s'
           }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '18px' }}>📅</span>
@@ -204,11 +137,14 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
       </header>
 
       {/* Featured Image Placeholder */}
-      <div style={{
+      <div className="featured-image-container" style={{
         padding: '0 5%',
-        marginBottom: '60px'
+        marginBottom: '60px',
+        opacity: isLoaded ? 1 : 0,
+        transform: isLoaded ? 'scale(1)' : 'scale(0.95)',
+        transition: 'all 1s ease-out 0.5s'
       }}>
-        <div style={{
+        <div className="featured-image" style={{
           maxWidth: '1200px',
           margin: '0 auto',
           height: '500px',
@@ -218,14 +154,18 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
           alignItems: 'center',
           justifyContent: 'center',
           fontSize: '80px',
-          border: '1px solid rgba(255,215,0,0.2)'
+          border: '1px solid rgba(255,215,0,0.2)',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
-          📰
+          {/* Animated glow */}
+          <div className="image-glow"></div>
+          <span style={{ position: 'relative', zIndex: 2 }}>📰</span>
         </div>
       </div>
 
       {/* Main Content */}
-      <article className="article-content" style={{ 
+      <article className="article-content fade-in-section" style={{ 
         padding: '60px 20px',
         backgroundColor: '#0F0F0F'
       }}>
@@ -237,7 +177,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
           color: 'rgba(255,255,255,0.8)'
         }}>
           {/* Content */}
-          <div className="blog-content" style={{ 
+          <div className="blog-content slide-in-up" style={{ 
             whiteSpace: 'pre-line',
             marginBottom: '60px'
           }}>
@@ -245,7 +185,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
           </div>
 
           {/* Share Buttons */}
-          <div style={{
+          <div className="share-section slide-in-up" style={{
             padding: '30px',
             backgroundColor: 'rgba(255,255,255,0.03)',
             borderRadius: '20px',
@@ -262,7 +202,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
             </h3>
             <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
               {['Facebook', 'Twitter', 'LinkedIn', 'WhatsApp'].map((platform, idx) => (
-                <button key={idx} style={{
+                <button key={idx} className="share-btn" style={{
                   padding: '12px 25px',
                   backgroundColor: 'rgba(255,215,0,0.1)',
                   border: '1px solid rgba(255,215,0,0.3)',
@@ -271,7 +211,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
                   fontSize: '13px',
                   fontWeight: '600',
                   cursor: 'pointer',
-                  transition: 'all 0.3s'
+                  animationDelay: `${idx * 0.1}s`
                 }}>
                   {platform}
                 </button>
@@ -280,7 +220,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
           </div>
 
           {/* Expert Callout Box */}
-          <div style={{ 
+          <div className="expert-callout slide-in-up" style={{ 
             marginTop: '60px', 
             padding: '50px 40px', 
             background: 'linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.1))',
@@ -291,20 +231,11 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
             position: 'relative',
             overflow: 'hidden'
           }}>
-            {/* Glow Effect */}
-            <div style={{
-              position: 'absolute',
-              top: '-50px',
-              right: '-50px',
-              width: '200px',
-              height: '200px',
-              background: 'radial-gradient(circle, rgba(255,215,0,0.2), transparent)',
-              borderRadius: '50%',
-              filter: 'blur(40px)'
-            }}></div>
+            {/* Animated Glow Effect */}
+            <div className="callout-glow"></div>
 
             <div style={{ position: 'relative', zIndex: 2 }}>
-              <div style={{ fontSize: '48px', marginBottom: '20px' }}>💡</div>
+              <div className="icon-bounce" style={{ fontSize: '48px', marginBottom: '20px' }}>💡</div>
               <h3 style={{ 
                 color: '#FFD700', 
                 fontSize: '28px', 
@@ -324,7 +255,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
                 সঠিক নিয়মে ভবন নির্মাণে আমরাই দিচ্ছি সেরা সল্যুশন। RAJUK approval থেকে শুরু করে সম্পূর্ণ নির্মাণ - সব কিছুতেই আমরা আছি আপনার পাশে।
               </p>
               <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <a href="tel:+8801958140774" style={{
+                <a href="tel:+8801958140774" className="btn-glow" style={{
                   padding: '18px 40px',
                   background: 'linear-gradient(135deg, #FFD700, #FFA500)',
                   color: '#0A0A0A',
@@ -335,12 +266,12 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '10px',
-                  boxShadow: '0 20px 40px rgba(255,215,0,0.3)',
-                  transition: 'all 0.3s'
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}>
-                  📞 ফ্রি পরামর্শ নিন
+                  <span style={{ position: 'relative', zIndex: 2 }}>📞 ফ্রি পরামর্শ নিন</span>
                 </a>
-                <a href="https://wa.me/8801958140774" style={{
+                <a href="https://wa.me/8801958140774" className="btn-whatsapp" style={{
                   padding: '18px 40px',
                   background: '#25D366',
                   color: 'white',
@@ -350,8 +281,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '10px',
-                  transition: 'all 0.3s'
+                  gap: '10px'
                 }}>
                   💬 WhatsApp করুন
                 </a>
@@ -362,40 +292,45 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
       </article>
 
       {/* Related Posts Section */}
-      <section style={{
+      <section className="related-section fade-in-section" style={{
         padding: '80px 5%',
-        backgroundColor: '#0A0A0A'
+        backgroundColor: '#0A0A0A',
+        position: 'relative'
       }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <h2 style={{
+        {/* Animated rings */}
+        <div className="section-ring ring-1"></div>
+        <div className="section-ring ring-2"></div>
+
+        <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+          <h2 className="section-heading" style={{
             fontSize: '36px',
             fontWeight: '900',
             color: 'white',
             marginBottom: '50px',
             textAlign: 'center'
           }}>
-            আরও <span style={{ color: '#FFD700' }}>পড়ুন</span>
+            আরও <span className="gradient-text" style={{ color: '#FFD700' }}>পড়ুন</span>
           </h2>
           <div className="related-posts" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '30px'
           }}>
-            {blogs.slice(0, 3).map((relatedPost) => (
+            {blogs.slice(0, 3).map((relatedPost, idx) => (
               <Link 
                 key={relatedPost.slug} 
                 href={`/blog/${relatedPost.slug}`}
                 style={{ textDecoration: 'none' }}
               >
-                <div style={{
+                <div className="related-card" style={{
                   backgroundColor: 'rgba(255,255,255,0.03)',
                   borderRadius: '20px',
                   padding: '30px',
                   border: '1px solid rgba(255,255,255,0.1)',
                   cursor: 'pointer',
-                  transition: 'all 0.3s'
+                  animationDelay: `${idx * 0.15}s`
                 }}>
-                  <div style={{
+                  <div className="card-badge" style={{
                     padding: '6px 15px',
                     backgroundColor: 'rgba(255,215,0,0.2)',
                     borderRadius: '20px',
@@ -411,7 +346,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
                       {relatedPost.category}
                     </span>
                   </div>
-                  <h3 style={{
+                  <h3 className="card-title" style={{
                     fontSize: '20px',
                     fontWeight: '700',
                     color: 'white',
@@ -428,11 +363,28 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
                   }}>
                     {relatedPost.excerpt}
                   </p>
-                  <div style={{
+                  <div className="card-date" style={{
                     fontSize: '13px',
-                    color: 'rgba(255,255,255,0.5)'
+                    color: 'rgba(255,255,255,0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
                   }}>
+                    <span>📅</span>
                     {relatedPost.date}
+                  </div>
+                  
+                  {/* Read more arrow */}
+                  <div className="read-more" style={{
+                    marginTop: '20px',
+                    color: '#FFD700',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}>
+                    Read More <span className="arrow">→</span>
                   </div>
                 </div>
               </Link>
@@ -441,118 +393,343 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ 
-        padding: '80px 5%', 
-        backgroundColor: '#000',
-        borderTop: '1px solid rgba(255,255,255,0.1)'
-      }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '25px' }}>
-                <div style={{
-                  width: '50px',
-                  height: '50px',
-                  background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-                  borderRadius: '15px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <span style={{ color: '#000', fontWeight: 'bold', fontSize: '28px' }}>I</span>
-                </div>
-                <div>
-                  <div style={{ fontSize: '24px', fontWeight: '900', color: 'white' }}>INSAF</div>
-                  <div style={{ fontSize: '11px', color: '#FFD700', letterSpacing: '3px' }}>ARCHITECTS</div>
-                </div>
-              </div>
-              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', lineHeight: '1.8' }}>
-                Defining Bangladesh's skyline with architectural excellence since 2018.
-              </p>
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>SERVICES</h4>
-              {['Architecture', 'Structure', 'RAJUK Approval', 'Interior'].map((item, idx) => (
-                <p key={idx} style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '12px' }}>
-                  {item}
-                </p>
-              ))}
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>QUICK LINKS</h4>
-              {[
-                { name: 'About', link: '/about' },
-                { name: 'Portfolio', link: '/portfolio' },
-                { name: 'Blog', link: '/blog' },
-                { name: 'Contact', link: '/contact' }
-              ].map((item, idx) => (
-                <Link key={idx} href={item.link} style={{ textDecoration: 'none', display: 'block' }}>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '12px' }}>
-                    {item.name}
-                  </p>
-                </Link>
-              ))}
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>CONTACT</h4>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>
-                📞 +880 1958-140774
-              </p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px' }}>
-                📍 Jatrabari, Dhaka
-              </p>
-            </div>
-          </div>
-
-          <div style={{ 
-            marginTop: '60px', 
-            paddingTop: '30px', 
-            borderTop: '1px solid rgba(255,255,255,0.1)', 
-            textAlign: 'center' 
-          }}>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
-              © 2024 INSAF LIMITED. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
-
-      {/* Mobile Responsive CSS */}
+      {/* CSS Animations */}
       <style>{`
+        /* ========== KEYFRAME ANIMATIONS ========== */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes particleFloat {
+          0%, 100% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.6;
+          }
+          90% {
+            opacity: 0.6;
+          }
+          100% {
+            transform: translateY(-100vh) rotate(720deg);
+            opacity: 0;
+          }
+        }
+
+        @keyframes glow {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(255,215,0,0.3); 
+            opacity: 0.5;
+          }
+          50% { 
+            box-shadow: 0 0 60px rgba(255,215,0,0.6), 0 0 100px rgba(255,215,0,0.3); 
+            opacity: 1;
+          }
+        }
+
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+
+        @keyframes iconBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes ringPulse {
+          0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+          50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.1; }
+          100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+        }
+
+        @keyframes borderGlow {
+          0%, 100% { border-color: rgba(255,215,0,0.2); }
+          50% { border-color: rgba(255,215,0,0.5); }
+        }
+
+        @keyframes floatGlow {
+          0%, 100% { 
+            transform: translate(0, 0);
+            opacity: 0.3;
+          }
+          50% { 
+            transform: translate(30px, -30px);
+            opacity: 0.6;
+          }
+        }
+
+        /* ========== PARTICLES ========== */
+        .particles {
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          top: 0;
+          left: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+        .particle {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          background: rgba(255,215,0,0.4);
+          border-radius: 50%;
+          animation: particleFloat 20s linear infinite;
+        }
+
+        /* ========== BACK BUTTON ========== */
+        .back-btn {
+          transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+          background-color: rgba(255,215,0,0.2);
+          transform: translateX(-5px);
+          box-shadow: 0 10px 30px rgba(255,215,0,0.2);
+        }
+
+        /* ========== CATEGORY BADGE ========== */
+        .category-badge {
+          animation: fadeInDown 0.8s ease-out;
+        }
+
+        /* ========== FEATURED IMAGE ========== */
+        .featured-image {
+          transition: all 0.5s ease;
+        }
+        .featured-image:hover {
+          transform: scale(1.02);
+          box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 40px rgba(255,215,0,0.1);
+        }
+        .image-glow {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, rgba(255,215,0,0.3), transparent);
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          animation: glow 4s ease-in-out infinite;
+          filter: blur(40px);
+        }
+
+        /* ========== CONTENT ANIMATIONS ========== */
+        .fade-in-section {
+          animation: fadeInUp 1s ease-out;
+        }
+
+        .slide-in-up {
+          animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .blog-content {
+          animation-delay: 0.2s;
+          opacity: 0;
+          animation-fill-mode: forwards;
+        }
+
+        /* ========== SHARE BUTTONS ========== */
+        .share-section {
+          animation-delay: 0.3s;
+          opacity: 0;
+          animation-fill-mode: forwards;
+          animation: borderGlow 3s infinite, slideInUp 0.8s ease-out forwards;
+        }
+
+        .share-btn {
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          animation: scaleIn 0.5s ease-out forwards;
+          opacity: 0;
+        }
+        .share-btn:hover {
+          background-color: rgba(255,215,0,0.2);
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 15px 30px rgba(255,215,0,0.2);
+        }
+
+        /* ========== EXPERT CALLOUT ========== */
+        .expert-callout {
+          animation-delay: 0.4s;
+          opacity: 0;
+          animation-fill-mode: forwards;
+        }
+
+        .callout-glow {
+          position: absolute;
+          top: -50px;
+          right: -50px;
+          width: 200px;
+          height: 200px;
+          background: radial-gradient(circle, rgba(255,215,0,0.3), transparent);
+          border-radius: 50%;
+          filter: blur(40px);
+          animation: floatGlow 6s ease-in-out infinite;
+        }
+
+        .icon-bounce {
+          animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        /* ========== CTA BUTTONS ========== */
+        .btn-glow {
+          transition: all 0.4s ease;
+          box-shadow: 0 20px 40px rgba(255,215,0,0.3);
+        }
+        .btn-glow:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 30px 60px rgba(255,215,0,0.5);
+        }
+        .btn-glow::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          transition: 0.5s;
+        }
+        .btn-glow:hover::before {
+          left: 100%;
+        }
+
+        .btn-whatsapp {
+          transition: all 0.4s ease;
+          box-shadow: 0 15px 30px rgba(37,211,102,0.3);
+        }
+        .btn-whatsapp:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 25px 50px rgba(37,211,102,0.4);
+        }
+
+        /* ========== SECTION RINGS ========== */
+        .section-ring {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          border: 1px solid rgba(255,215,0,0.1);
+          border-radius: 50%;
+          animation: ringPulse 4s ease-in-out infinite;
+          pointer-events: none;
+        }
+        .ring-1 {
+          width: 400px;
+          height: 400px;
+        }
+        .ring-2 {
+          width: 600px;
+          height: 600px;
+          animation-delay: 0.5s;
+        }
+
+        /* ========== RELATED CARDS ========== */
+        .related-card {
+          animation: scaleIn 0.6s ease-out forwards;
+          opacity: 0;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .related-card:hover {
+          transform: translateY(-15px) scale(1.02);
+          border-color: rgba(255,215,0,0.4);
+          box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 30px rgba(255,215,0,0.1);
+        }
+
+        .card-badge {
+          transition: all 0.3s ease;
+        }
+        .related-card:hover .card-badge {
+          background-color: rgba(255,215,0,0.3);
+        }
+
+        .card-title {
+          transition: all 0.3s ease;
+        }
+        .related-card:hover .card-title {
+          color: #FFD700;
+        }
+
+        .read-more {
+          opacity: 0;
+          transform: translateX(-10px);
+          transition: all 0.3s ease;
+        }
+        .related-card:hover .read-more {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .arrow {
+          transition: transform 0.3s ease;
+        }
+        .related-card:hover .arrow {
+          transform: translateX(5px);
+        }
+
+        /* ========== GRADIENT TEXT ========== */
+        .gradient-text {
+          background: linear-gradient(135deg, #FFD700, #FFA500);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shimmer 3s linear infinite;
+        }
+
+        /* ========== SECTION HEADING ========== */
+        .section-heading {
+          animation: fadeInUp 1s ease-out;
+        }
+
+        /* ========== RESPONSIVE ========== */
         body {
           overflow-x: hidden !important;
         }
 
-        .mobile-menu-btn {
-          display: none !important;
-        }
-
         @media (max-width: 768px) {
-          /* Navigation */
-          nav {
-            width: 95% !important;
-            padding: 12px 20px !important;
-          }
-          
-          .desktop-menu {
-            display: none !important;
-          }
-          
-          .desktop-cta {
-            display: none !important;
-          }
-          
-          .mobile-menu-btn {
-            display: block !important;
-          }
-          
-          /* Article Header */
           .article-header {
-            padding-top: 120px !important;
+            padding-top: 60px !important;
             padding-bottom: 40px !important;
           }
           
@@ -565,7 +742,6 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
             gap: 15px !important;
           }
           
-          /* Article Content */
           .article-content {
             padding: 40px 15px !important;
           }
@@ -574,23 +750,29 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
             font-size: 16px !important;
           }
           
-          /* Related Posts */
           .related-posts {
             grid-template-columns: 1fr !important;
             gap: 20px !important;
           }
-          
-          /* Footer */
-          .footer-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-            text-align: center !important;
+
+          .particles {
+            display: none;
           }
-          
-          .footer-grid > div {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
+
+          .section-ring {
+            display: none;
+          }
+
+          .featured-image {
+            height: 300px !important;
+          }
+
+          .expert-callout {
+            padding: 30px 20px !important;
+          }
+
+          .expert-callout h3 {
+            font-size: 22px !important;
           }
         }
 
@@ -602,6 +784,11 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
           .article-meta span {
             font-size: 12px !important;
           }
+
+          .featured-image {
+            height: 250px !important;
+            font-size: 50px !important;
+          }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -611,10 +798,6 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
           
           .related-posts {
             grid-template-columns: 1fr 1fr !important;
-          }
-          
-          .footer-grid {
-            grid-template-columns: 2fr 1fr 1fr !important;
           }
         }
       `}</style>

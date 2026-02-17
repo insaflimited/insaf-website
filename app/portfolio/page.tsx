@@ -4,7 +4,6 @@ import { useState } from 'react'
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('all')
-  const [menuOpen, setMenuOpen] = useState(false)
 
   const filters = ['all', 'residential', 'commercial', 'interior', 'luxury']
 
@@ -86,157 +85,24 @@ export default function Portfolio() {
       minHeight: '100vh', 
       backgroundColor: '#0A0A0A', 
       fontFamily: 'system-ui, sans-serif',
-      overflowX: 'hidden' 
+      overflowX: 'hidden',
+      position: 'relative'
     }}>
       
-      {/* FLOATING NAVBAR - Mobile Responsive */}
-      <nav style={{
+      {/* ✅ FLOATING GLOW ORB */}
+      <div style={{
         position: 'fixed',
-        top: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '90%',
-        maxWidth: '1200px',
-        zIndex: 100,
-        backgroundColor: 'rgba(255,255,255,0.08)',
-        backdropFilter: 'blur(20px)',
-        borderRadius: '20px',
-        border: '1px solid rgba(255,255,255,0.1)',
-        padding: '15px 30px'
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {/* Logo */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
-              width: '45px',
-              height: '45px',
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 30px rgba(255,215,0,0.5)'
-            }}>
-              <span style={{ color: '#0A0A0A', fontWeight: 'bold', fontSize: '24px' }}>I</span>
-            </div>
-            <div>
-              <div style={{ fontSize: '22px', fontWeight: '900', color: 'white', letterSpacing: '2px' }}>INSAF</div>
-              <div style={{ fontSize: '10px', color: '#FFD700', letterSpacing: '3px', marginTop: '-2px' }}>ARCHITECTS</div>
-            </div>
-          </Link>
-
-          {/* Desktop Menu */}
-          <div className="desktop-menu" style={{ display: 'flex', gap: '35px', color: 'white', fontSize: '14px', fontWeight: '500' }}>
-            <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>HOME</Link>
-            <Link href="/about" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>ABOUT</Link>
-            <Link href="/services" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>SERVICES</Link>
-            <Link href="/portfolio" style={{ color: '#FFD700', textDecoration: 'none' }}>PORTFOLIO</Link>
-            <Link href="/blog" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>BLOG</Link>
-          </div>
-
-          {/* Desktop CTA */}
-          <Link href="/contact" className="desktop-cta">
-            <button style={{
-              padding: '12px 25px',
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-              border: 'none',
-              borderRadius: '30px',
-              color: '#0A0A0A',
-              fontWeight: '700',
-              fontSize: '13px',
-              letterSpacing: '1px',
-              cursor: 'pointer',
-              boxShadow: '0 0 30px rgba(255,215,0,0.3)'
-            }}>
-              START PROJECT →
-            </button>
-          </Link>
-
-          {/* Mobile Hamburger Button */}
-          <button 
-            className="mobile-menu-btn"
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              display: 'none',
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '10px',
-              zIndex: 200
-            }}
-          >
-            <div style={{ width: '28px', height: '20px', position: 'relative' }}>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                transition: 'all 0.3s',
-                top: menuOpen ? '8px' : '0',
-                transform: menuOpen ? 'rotate(45deg)' : 'none'
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                transition: 'all 0.3s',
-                top: '8px',
-                opacity: menuOpen ? 0 : 1
-              }}></div>
-              <div style={{
-                position: 'absolute',
-                width: '28px',
-                height: '3px',
-                backgroundColor: '#FFD700',
-                borderRadius: '3px',
-                transition: 'all 0.3s',
-                top: menuOpen ? '8px' : '16px',
-                transform: menuOpen ? 'rotate(-45deg)' : 'none'
-              }}></div>
-            </div>
-          </button>
-        </div>
-
-        {/* Mobile Menu Dropdown */}
-        {menuOpen && (
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            paddingTop: '30px',
-            paddingBottom: '20px',
-            borderTop: '1px solid rgba(255,255,255,0.1)',
-            marginTop: '20px'
-          }}>
-            <Link href="/" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>HOME</Link>
-            <Link href="/about" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>ABOUT</Link>
-            <Link href="/services" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>SERVICES</Link>
-            <Link href="/portfolio" onClick={() => setMenuOpen(false)} style={{ color: '#FFD700', textDecoration: 'none', fontSize: '18px', fontWeight: '600' }}>PORTFOLIO</Link>
-            <Link href="/blog" onClick={() => setMenuOpen(false)} style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '18px', fontWeight: '500' }}>BLOG</Link>
-            
-            <Link href="/contact" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none' }}>
-              <button style={{
-                marginTop: '10px',
-                padding: '15px 30px',
-                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-                border: 'none',
-                borderRadius: '30px',
-                color: '#0A0A0A',
-                fontWeight: '700',
-                fontSize: '14px',
-                letterSpacing: '1px',
-                cursor: 'pointer',
-                width: '100%'
-              }}>
-                START PROJECT →
-              </button>
-            </Link>
-          </div>
-        )}
-      </nav>
+        top: '10%',
+        right: '5%',
+        width: '400px',
+        height: '400px',
+        background: 'radial-gradient(circle, rgba(255,215,0,0.15), transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(60px)',
+        animation: 'floatOrb 8s ease-in-out infinite',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }}></div>
 
       {/* HERO SECTION */}
       <section style={{
@@ -244,11 +110,14 @@ export default function Portfolio() {
         display: 'flex',
         alignItems: 'center',
         background: 'radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 50%)',
-        paddingTop: '140px',
-        paddingBottom: '60px'
+        paddingTop: '100px',
+        paddingBottom: '60px',
+        position: 'relative'
       }}>
-        <div style={{ width: '100%', padding: '0 5%' }}>
+        <div style={{ width: '100%', padding: '0 5%', position: 'relative', zIndex: 1 }}>
           <div className="hero-content" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            
+            {/* ✅ BADGE WITH PULSE DOT */}
             <div className="hero-badge" style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -257,14 +126,22 @@ export default function Portfolio() {
               backgroundColor: 'rgba(255,215,0,0.1)',
               border: '1px solid rgba(255,215,0,0.3)',
               borderRadius: '50px',
-              marginBottom: '30px'
+              marginBottom: '30px',
+              animation: 'fadeInUp 0.8s ease-out'
             }}>
-              <div style={{ width: '8px', height: '8px', backgroundColor: '#FFD700', borderRadius: '50%' }}></div>
+              <div style={{ 
+                width: '8px', 
+                height: '8px', 
+                backgroundColor: '#FFD700', 
+                borderRadius: '50%',
+                animation: 'pulseDot 2s ease-in-out infinite'
+              }}></div>
               <span style={{ color: '#FFD700', fontSize: '12px', letterSpacing: '2px', fontWeight: '600' }}>
                 530+ PROJECTS COMPLETED
               </span>
             </div>
 
+            {/* ✅ GRADIENT TEXT SHIMMER */}
             <h1 className="hero-heading" style={{
               fontSize: '80px',
               fontWeight: '900',
@@ -272,14 +149,17 @@ export default function Portfolio() {
               lineHeight: '1',
               marginBottom: '30px',
               letterSpacing: '-3px',
-              maxWidth: '900px'
+              maxWidth: '900px',
+              animation: 'fadeInUp 1s ease-out 0.2s backwards'
             }}>
               PORTFOLIO OF
               <br />
               <span style={{
-                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                background: 'linear-gradient(135deg, #FFD700, #FFA500, #FFD700)',
+                backgroundSize: '200% 100%',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                WebkitTextFillColor: 'transparent',
+                animation: 'shimmer 3s ease-in-out infinite'
               }}>EXCELLENCE</span>
             </h1>
 
@@ -288,7 +168,8 @@ export default function Portfolio() {
               color: 'rgba(255,255,255,0.6)',
               marginBottom: '50px',
               maxWidth: '700px',
-              lineHeight: '1.6'
+              lineHeight: '1.6',
+              animation: 'fadeInUp 1.2s ease-out 0.4s backwards'
             }}>
               Explore our collection of architectural masterpieces that define 
               Bangladesh's luxury landscape.
@@ -298,10 +179,20 @@ export default function Portfolio() {
       </section>
 
       {/* FILTER SECTION */}
-      <section style={{ padding: '40px 5%', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+      <section style={{ 
+        padding: '40px 5%', 
+        borderBottom: '1px solid rgba(255,255,255,0.1)',
+        position: 'relative',
+        zIndex: 1
+      }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div className="filter-buttons" style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {filters.map((filter) => (
+          <div className="filter-buttons" style={{ 
+            display: 'flex', 
+            gap: '15px', 
+            flexWrap: 'wrap', 
+            justifyContent: 'center' 
+          }}>
+            {filters.map((filter, idx) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
@@ -318,7 +209,21 @@ export default function Portfolio() {
                   letterSpacing: '1px',
                   cursor: 'pointer',
                   textTransform: 'uppercase',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  animation: `fadeInUp 0.6s ease-out ${idx * 0.1}s backwards`,
+                  boxShadow: activeFilter === filter ? '0 10px 30px rgba(255,215,0,0.3)' : 'none'
+                }}
+                onMouseEnter={(e) => {
+                  if (activeFilter !== filter) {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                    e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (activeFilter !== filter) {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
+                  }
                 }}
               >
                 {filter}
@@ -329,14 +234,14 @@ export default function Portfolio() {
       </section>
 
       {/* PROJECTS GRID */}
-      <section style={{ padding: '80px 5%', backgroundColor: '#0A0A0A' }}>
+      <section style={{ padding: '80px 5%', backgroundColor: '#0A0A0A', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div className="projects-grid" style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', 
             gap: '30px' 
           }}>
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, idx) => (
               <div
                 key={project.id}
                 className="project-card"
@@ -347,10 +252,18 @@ export default function Portfolio() {
                   position: 'relative',
                   height: '550px',
                   background: project.gradient,
-                  transition: 'transform 0.3s'
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  animation: `fadeInUp 0.8s ease-out ${idx * 0.1}s backwards`,
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'
+                  e.currentTarget.style.boxShadow = '0 20px 60px rgba(255,215,0,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)'
+                  e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)'
+                }}
               >
                 <div style={{
                   position: 'absolute',
@@ -362,9 +275,9 @@ export default function Portfolio() {
                   justifyContent: 'flex-end'
                 }}>
                   <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                    {project.tags.map((tag, idx) => (
+                    {project.tags.map((tag, tagIdx) => (
                       <span
-                        key={idx}
+                        key={tagIdx}
                         style={{
                           padding: '6px 15px',
                           backgroundColor: 'rgba(255,215,0,0.2)',
@@ -372,7 +285,8 @@ export default function Portfolio() {
                           fontSize: '11px',
                           color: '#FFD700',
                           fontWeight: '600',
-                          letterSpacing: '1px'
+                          letterSpacing: '1px',
+                          animation: `fadeIn 0.6s ease-out ${tagIdx * 0.1}s backwards`
                         }}
                       >
                         {tag}
@@ -423,7 +337,8 @@ export default function Portfolio() {
                     {project.location}
                   </div>
 
-                  <div style={{
+                  {/* ✅ BUTTON SHINE EFFECT */}
+                  <div className="view-btn" style={{
                     marginTop: '20px',
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -435,8 +350,20 @@ export default function Portfolio() {
                     fontWeight: '700',
                     fontSize: '13px',
                     letterSpacing: '1px',
-                    width: 'fit-content'
+                    width: 'fit-content',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s'
                   }}>
+                    <div className="btn-shine" style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: '-100%',
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+                      animation: 'btnShine 3s ease-in-out infinite'
+                    }}></div>
                     VIEW PROJECT
                     <span style={{ fontSize: '16px' }}>→</span>
                   </div>
@@ -448,9 +375,19 @@ export default function Portfolio() {
       </section>
 
       {/* STATS SECTION */}
-      <section style={{ padding: '100px 5%', backgroundColor: '#0F0F0F' }}>
+      <section style={{ 
+        padding: '100px 5%', 
+        backgroundColor: '#0F0F0F',
+        position: 'relative',
+        zIndex: 1
+      }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', textAlign: 'center' }}>
+          <div className="stats-grid" style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(4, 1fr)', 
+            gap: '40px', 
+            textAlign: 'center' 
+          }}>
             {[
               { number: '530+', label: 'PROJECTS DELIVERED' },
               { number: '100%', label: 'RAJUK SUCCESS' },
@@ -461,12 +398,26 @@ export default function Portfolio() {
                 padding: '40px',
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '20px',
-                border: '1px solid rgba(255,255,255,0.1)'
+                border: '1px solid rgba(255,255,255,0.1)',
+                transition: 'all 0.3s',
+                animation: `fadeInUp 0.8s ease-out ${idx * 0.15}s backwards`
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255,215,0,0.05)'
+                e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)'
+                e.currentTarget.style.transform = 'translateY(-5px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.03)'
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
+                e.currentTarget.style.transform = 'translateY(0)'
               }}>
                 <div style={{
                   fontSize: '48px',
                   fontWeight: '900',
-                  color: '#FFD700',
+                  background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                   marginBottom: '10px',
                   letterSpacing: '-2px'
                 }}>
@@ -486,40 +437,84 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* CTA SECTION */}
+      {/* ✅ CTA SECTION WITH RINGS PULSE */}
       <section style={{
         padding: '120px 5%',
         backgroundColor: '#0A0A0A',
-        background: 'radial-gradient(circle at 50% 50%, rgba(255,215,0,0.15), transparent 70%)'
+        position: 'relative',
+        overflow: 'hidden',
+        zIndex: 1
       }}>
-        <div className="cta-content" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+        {/* ✅ PULSING RINGS */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '600px',
+          height: '600px',
+          borderRadius: '50%',
+          border: '2px solid rgba(255,215,0,0.1)',
+          animation: 'ringsPulse 3s ease-out infinite',
+          zIndex: 0
+        }}></div>
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '500px',
+          height: '500px',
+          borderRadius: '50%',
+          border: '2px solid rgba(255,215,0,0.1)',
+          animation: 'ringsPulse 3s ease-out 0.5s infinite',
+          zIndex: 0
+        }}></div>
+
+        <div className="cta-content" style={{ 
+          maxWidth: '900px', 
+          margin: '0 auto', 
+          textAlign: 'center',
+          position: 'relative',
+          zIndex: 1
+        }}>
           <h2 className="cta-heading" style={{
             fontSize: '64px',
             fontWeight: '900',
             color: 'white',
             marginBottom: '25px',
-            lineHeight: '1.1'
+            lineHeight: '1.1',
+            animation: 'fadeInUp 0.8s ease-out'
           }}>
             Let's Create Your
             <br />
             <span style={{
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+              background: 'linear-gradient(135deg, #FFD700, #FFA500, #FFD700)',
+              backgroundSize: '200% 100%',
               WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              WebkitTextFillColor: 'transparent',
+              animation: 'shimmer 3s ease-in-out infinite'
             }}>Masterpiece</span>
           </h2>
 
           <p style={{
             fontSize: '20px',
             color: 'rgba(255,255,255,0.6)',
-            marginBottom: '50px'
+            marginBottom: '50px',
+            animation: 'fadeInUp 1s ease-out 0.2s backwards'
           }}>
             Join our portfolio of excellence. Start your project today.
           </p>
 
-          <div className="cta-buttons-final" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div className="cta-buttons-final" style={{ 
+            display: 'flex', 
+            gap: '20px', 
+            justifyContent: 'center', 
+            flexWrap: 'wrap',
+            animation: 'fadeInUp 1.2s ease-out 0.4s backwards'
+          }}>
             <Link href="/contact">
-              <button style={{
+              <button className="cta-btn-main" style={{
                 padding: '20px 50px',
                 background: 'linear-gradient(135deg, #FFD700, #FFA500)',
                 border: 'none',
@@ -529,12 +524,24 @@ export default function Portfolio() {
                 fontSize: '16px',
                 letterSpacing: '1px',
                 cursor: 'pointer',
-                boxShadow: '0 30px 60px rgba(255,215,0,0.4)'
+                boxShadow: '0 30px 60px rgba(255,215,0,0.4)',
+                transition: 'all 0.3s',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-3px)'
+                e.currentTarget.style.boxShadow = '0 40px 80px rgba(255,215,0,0.5)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = '0 30px 60px rgba(255,215,0,0.4)'
               }}>
                 START YOUR PROJECT →
               </button>
             </Link>
-            <a href="https://wa.me/8801958140774" style={{
+            
+            <a href="https://wa.me/8801958140774" className="whatsapp-btn" style={{
               padding: '20px 40px',
               background: '#25D366',
               border: 'none',
@@ -546,7 +553,17 @@ export default function Portfolio() {
               textDecoration: 'none',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '10px'
+              gap: '10px',
+              transition: 'all 0.3s',
+              boxShadow: '0 20px 40px rgba(37,211,102,0.3)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)'
+              e.currentTarget.style.boxShadow = '0 30px 60px rgba(37,211,102,0.4)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)'
+              e.currentTarget.style.boxShadow = '0 20px 40px rgba(37,211,102,0.3)'
             }}>
               <span style={{ fontSize: '20px' }}>💬</span>
               WHATSAPP NOW
@@ -555,161 +572,79 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer style={{ 
-        padding: '80px 5%', 
-        backgroundColor: '#000',
-        borderTop: '1px solid rgba(255,255,255,0.1)',
-        fontFamily: 'system-ui, sans-serif'
-      }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '60px' }}>
-            
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '25px' }}>
-                <div style={{
-                  width: '50px',
-                  height: '50px',
-                  background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-                  borderRadius: '15px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <span style={{ color: '#000', fontWeight: 'bold', fontSize: '28px' }}>I</span>
-                </div>
-                <div>
-                  <div style={{ fontSize: '24px', fontWeight: '900', color: 'white' }}>INSAF</div>
-                  <div style={{ fontSize: '11px', color: '#FFD700', letterSpacing: '3px' }}>ARCHITECTS</div>
-                </div>
-              </div>
-              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', lineHeight: '1.8', marginBottom: '30px' }}>
-                Defining Bangladesh's skyline with architectural excellence since 2018.
-              </p>
-              
-              <div style={{ display: 'flex', gap: '15px' }}>
-                {['facebook', 'instagram', 'linkedin', 'youtube'].map((social, idx) => (
-                  <div key={idx} style={{
-                    width: '40px',
-                    height: '40px',
-                    backgroundColor: 'rgba(255,255,255,0.05)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    cursor: 'pointer',
-                    color: 'rgba(255,255,255,0.5)',
-                    fontSize: '12px'
-                  }}>
-                    {social[0].toUpperCase()}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>SERVICES</h4>
-              {['Architecture', 'Structure', 'RAJUK Approval', 'Interior', 'Landscape'].map((item, idx) => (
-                <p key={idx} style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '12px', cursor: 'pointer' }}>
-                  {item}
-                </p>
-              ))}
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>QUICK LINKS</h4>
-              {[
-                { name: 'About Us', link: '/about' },
-                { name: 'Portfolio', link: '/portfolio' },
-                { name: 'Services', link: '/services' },
-                { name: 'Blog', link: '/blog' },
-                { name: 'Contact', link: '/contact' }
-              ].map((item, idx) => (
-                <Link key={idx} href={item.link} style={{ textDecoration: 'none', display: 'block' }}>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '12px', cursor: 'pointer' }}>
-                    {item.name}
-                  </p>
-                </Link>
-              ))}
-            </div>
-
-            <div>
-              <h4 style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '2px', marginBottom: '25px' }}>CONTACT</h4>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>📞 +880 1958-140774</p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>✉️ contact@insaflimited.com</p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '20px' }}>📍 Kazlar par, Jatrabari, Dhaka 1204</p>
-              <button onClick={() => window.open('https://maps.app.goo.gl/6KuYrT1nowS4nao46', '_blank')} style={{
-                padding: '12px 25px',
-                background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-                border: 'none',
-                borderRadius: '30px',
-                color: '#000',
-                fontWeight: '700',
-                fontSize: '12px',
-                letterSpacing: '1px',
-                cursor: 'pointer'
-              }}>
-                GET DIRECTIONS
-              </button>
-            </div>
-          </div>
-
-          <div style={{ 
-            marginTop: '80px', 
-            paddingTop: '30px', 
-            borderTop: '1px solid rgba(255,255,255,0.1)', 
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '20px'
-          }}>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
-              © 2024 INSAF LIMITED. All rights reserved.
-            </p>
-            <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
-              <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Privacy Policy</a>
-              <a href="#" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px', textDecoration: 'none' }}>Terms of Service</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* CSS Animations + Mobile Responsive Styles */}
+      {/* ✅ CSS ANIMATIONS - ALL EFFECTS KEPT */}
       <style>{`
         /* Prevent horizontal scroll */
         body {
           overflow-x: hidden !important;
         }
 
-        /* Hide mobile menu button by default */
-        .mobile-menu-btn {
-          display: none !important;
+        /* ✅ FLOATING ORB ANIMATION */
+        @keyframes floatOrb {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -30px) scale(1.1); }
+          66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* ✅ PULSE DOT */
+        @keyframes pulseDot {
+          0%, 100% { 
+            transform: scale(1); 
+            box-shadow: 0 0 0 0 rgba(255,215,0,0.7);
+          }
+          50% { 
+            transform: scale(1.2); 
+            box-shadow: 0 0 0 10px rgba(255,215,0,0);
+          }
+        }
+
+        /* ✅ GRADIENT SHIMMER */
+        @keyframes shimmer {
+          0% { background-position: 200% center; }
+          100% { background-position: -200% center; }
+        }
+
+        /* ✅ FADE IN UP */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* ✅ FADE IN */
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        /* ✅ BUTTON SHINE */
+        @keyframes btnShine {
+          0% { left: -100%; }
+          20%, 100% { left: 100%; }
+        }
+
+        /* ✅ RINGS PULSE */
+        @keyframes ringsPulse {
+          0% {
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.3;
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(1.2);
+            opacity: 0;
+          }
         }
 
         /* Mobile Devices (768px and below) */
         @media (max-width: 768px) {
-          
-          /* Navigation */
-          nav {
-            width: 95% !important;
-            padding: 12px 20px !important;
-            top: 10px !important;
-          }
-          
-          .desktop-menu {
-            display: none !important;
-          }
-          
-          .desktop-cta {
-            display: none !important;
-          }
-          
-          .mobile-menu-btn {
-            display: block !important;
-          }
-          
           /* Hero Section */
           .hero-content {
             text-align: center !important;
@@ -794,19 +729,6 @@ export default function Portfolio() {
             max-width: 300px !important;
             justify-content: center !important;
           }
-          
-          /* Footer */
-          .footer-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-            text-align: center !important;
-          }
-          
-          .footer-grid > div {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-          }
         }
 
         /* Small Mobile (480px and below) */
@@ -831,7 +753,6 @@ export default function Portfolio() {
             font-size: 22px !important;
           }
           
-          /* Stats - 1 column on very small */
           .stats-grid {
             grid-template-columns: 1fr !important;
           }
@@ -858,10 +779,6 @@ export default function Portfolio() {
           
           .stats-grid {
             grid-template-columns: 1fr 1fr !important;
-          }
-          
-          .footer-grid {
-            grid-template-columns: 2fr 1fr 1fr !important;
           }
         }
 

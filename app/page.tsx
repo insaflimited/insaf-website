@@ -669,10 +669,10 @@ export default function Home() {
             gap: '25px'
           }}>
             {[
-              { name: 'Muktar Plaza', type: 'Luxury Residence', location: 'Rayerbag, Jatrabari', size: '8,500 sqft', year: '2023', color: '#667eea' },
-              { name: 'Badsha Villa', type: 'Residential Building', location: 'Kazlar par Jatrabari', size: '3,000 sqft', year: '2025', color: '#f093fb' },
-              { name: 'City Square', type: 'Residential & Commercial', location: 'Saddam Market, Matuail', size: '6,500 sqft', year: '2025', color: '#4facfe' },
-              { name: 'Khan Monzil', type: 'Minimalist Home', location: 'Fatullah, Narayangonj', size: '4,500 sqft', year: '2023', color: '#43e97b' }
+              { name: 'Muktar Plaza', type: 'Luxury Residence', location: 'Rayerbag, Jatrabari', size: '8,500 sqft', year: '2023', color: '#667eea', image: '/images/Featured/project1.jpg' },
+              { name: 'Badsha Villa', type: 'Residential Building', location: 'Kazlar par Jatrabari', size: '3,000 sqft', year: '2025', color: '#f093fb', image: '/images/Featured/project2.jpg' },
+              { name: 'City Square', type: 'Residential & Commercial', location: 'Saddam Market, Matuail', size: '6,500 sqft', year: '2025', color: '#4facfe', image: '/images/Featured/project3.jpg' },
+              { name: 'Khan Monzil', type: 'Minimalist Home', location: 'Fatullah, Narayangonj', size: '4,500 sqft', year: '2023', color: '#43e97b', image: '/images/Featured/project4.jpg' }
             ].map((project, idx) => (
               <div 
                 key={idx}
@@ -680,7 +680,10 @@ export default function Home() {
                 style={{
                   minHeight: '450px',
                   borderRadius: '20px',
-                  background: `linear-gradient(135deg, ${project.color}25, ${project.color}10)`,
+                  backgroundImage: `linear-gradient(to bottom, ${project.color}20, rgba(0,0,0,0.85)), url(${project.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',

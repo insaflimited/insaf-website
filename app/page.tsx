@@ -1,5 +1,4 @@
 'use client'
-import { useState } from 'react'
 import Link from 'next/link'
 
 export default function Home() {
@@ -84,7 +83,7 @@ export default function Home() {
               border: '1px solid rgba(255,215,0,0.3)',
               borderRadius: '50px',
               marginBottom: '30px',
-              animation: 'fadeInDown 0.8s ease-out'
+              animation: 'fadeInDown 0.8s ease-out, badgeGlow 3s ease-in-out infinite'
             }}>
               <div style={{ 
                 width: '8px', 
@@ -131,7 +130,7 @@ export default function Home() {
               animation: 'fadeInUp 1.2s ease-out 0.4s backwards'
             }}>
               Where architectural excellence meets structural precision. 
-              Creating spaces that define Bangladesh's skyline since 2018.
+              Creating spaces that define Bangladesh&apos;s skyline since 2018.
             </p>
 
             <div style={{ 
@@ -155,7 +154,8 @@ export default function Home() {
                     background: 'linear-gradient(135deg, #FFD700, #FFA500)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
-                    textShadow: '0 0 30px rgba(255,215,0,0.3)'
+                    textShadow: '0 0 30px rgba(255,215,0,0.3)',
+                    animation: 'numberGlow 2s ease-in-out infinite'
                   }}>
                     {stat.number}
                   </div>
@@ -206,7 +206,7 @@ export default function Home() {
               </Link>
               
               <Link href="/portfolio" style={{ textDecoration: 'none' }}>
-                <button style={{
+                <button className="btn-secondary" style={{
                   padding: '18px 35px',
                   background: 'transparent',
                   border: '2px solid rgba(255,255,255,0.2)',
@@ -217,7 +217,8 @@ export default function Home() {
                   letterSpacing: '1px',
                   cursor: 'pointer',
                   backdropFilter: 'blur(10px)',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  animation: 'borderPulse 3s ease-in-out infinite'
                 }}>
                   VIEW PORTFOLIO
                 </button>
@@ -326,12 +327,18 @@ export default function Home() {
         zIndex: 1
       }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          {/* Section Header with Animation */}
+          <div style={{ 
+            textAlign: 'center', 
+            marginBottom: '60px',
+            animation: 'fadeInUp 0.8s ease-out'
+          }}>
             <div style={{ 
               color: '#FFD700', 
               fontSize: '14px', 
               letterSpacing: '3px', 
-              marginBottom: '20px'
+              marginBottom: '20px',
+              animation: 'fadeIn 1s ease-out, textGlow 3s ease-in-out infinite'
             }}>
               OUR EXPERTISE
             </div>
@@ -339,35 +346,57 @@ export default function Home() {
               fontSize: '48px', 
               fontWeight: '900', 
               color: 'white', 
-              letterSpacing: '-1px'
+              letterSpacing: '-1px',
+              animation: 'fadeInUp 1s ease-out 0.2s backwards'
             }}>
               CRAFTING <span style={{
                 background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                backgroundSize: '200% 100%',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                WebkitTextFillColor: 'transparent',
+                animation: 'gradientShift 4s ease-in-out infinite'
               }}>EXCELLENCE</span>
             </h2>
           </div>
 
-          {/* Row 1 */}
+          {/* Row 1 - Main Cards with Animations */}
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
             gap: '20px', 
             marginBottom: '20px' 
           }}>
-            <div style={{
+            {/* RAJUK Card */}
+            <div className="expertise-card" style={{
               background: 'linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.05))',
               borderRadius: '25px',
               padding: '35px',
               border: '1px solid rgba(255,215,0,0.3)',
-              transition: 'all 0.4s'
+              transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              animation: 'cardReveal 0.8s ease-out, borderGlow 4s ease-in-out infinite',
+              cursor: 'pointer'
             }}>
-              <div style={{ fontSize: '45px', marginBottom: '15px' }}>🏛️</div>
-              <h3 style={{ fontSize: '22px', fontWeight: '800', color: 'white', marginBottom: '12px' }}>
+              <div style={{ 
+                fontSize: '45px', 
+                marginBottom: '15px',
+                animation: 'iconBounce 2s ease-in-out infinite'
+              }}>🏛️</div>
+              <h3 style={{ 
+                fontSize: '22px', 
+                fontWeight: '800', 
+                color: 'white', 
+                marginBottom: '12px',
+                animation: 'textReveal 0.8s ease-out 0.3s backwards'
+              }}>
                 RAJUK Approval
               </h3>
-              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.7', marginBottom: '20px' }}>
+              <p style={{ 
+                fontSize: '14px', 
+                color: 'rgba(255,255,255,0.6)', 
+                lineHeight: '1.7', 
+                marginBottom: '20px',
+                animation: 'fadeIn 0.8s ease-out 0.5s backwards'
+              }}>
                 530+ successful approvals with 100% success rate. Fast-track processing.
               </p>
               <span style={{ 
@@ -377,21 +406,34 @@ export default function Home() {
                 color: '#FFD700',
                 fontSize: '12px',
                 fontWeight: '600',
-                border: '1px solid rgba(255,215,0,0.3)'
+                border: '1px solid rgba(255,215,0,0.3)',
+                animation: 'pulseGlow 2s ease-in-out infinite'
               }}>
                 4-Month Average
               </span>
             </div>
 
-            <div style={{
+            {/* Architectural Card */}
+            <div className="expertise-card" style={{
               background: 'linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.05))',
               borderRadius: '25px',
               padding: '35px',
               border: '1px solid rgba(102,126,234,0.2)',
-              transition: 'all 0.4s'
+              transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              animation: 'cardReveal 0.8s ease-out 0.15s backwards',
+              cursor: 'pointer'
             }}>
-              <div style={{ fontSize: '45px', marginBottom: '15px' }}>🏠</div>
-              <h3 style={{ fontSize: '22px', fontWeight: '800', color: 'white', marginBottom: '12px' }}>
+              <div style={{ 
+                fontSize: '45px', 
+                marginBottom: '15px',
+                animation: 'iconBounce 2s ease-in-out infinite 0.3s'
+              }}>🏠</div>
+              <h3 style={{ 
+                fontSize: '22px', 
+                fontWeight: '800', 
+                color: 'white', 
+                marginBottom: '12px' 
+              }}>
                 Architectural Design
               </h3>
               <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.7' }}>
@@ -399,14 +441,21 @@ export default function Home() {
               </p>
             </div>
 
-            <div style={{
+            {/* Structural Card */}
+            <div className="expertise-card" style={{
               background: 'linear-gradient(135deg, rgba(255,107,107,0.1), rgba(255,142,83,0.05))',
               borderRadius: '25px',
               padding: '35px',
               border: '1px solid rgba(255,107,107,0.2)',
-              transition: 'all 0.4s'
+              transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              animation: 'cardReveal 0.8s ease-out 0.3s backwards',
+              cursor: 'pointer'
             }}>
-              <div style={{ fontSize: '45px', marginBottom: '15px' }}>🏗️</div>
+              <div style={{ 
+                fontSize: '45px', 
+                marginBottom: '15px',
+                animation: 'iconBounce 2s ease-in-out infinite 0.6s'
+              }}>🏗️</div>
               <h3 style={{ fontSize: '22px', fontWeight: '800', color: 'white', marginBottom: '12px' }}>
                 Structural Design
               </h3>
@@ -416,7 +465,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Row 2 */}
+          {/* Row 2 - Service Cards with Staggered Animations */}
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
@@ -429,15 +478,21 @@ export default function Home() {
               { icon: '📡', title: 'Digital Survey', desc: 'GPS land measurement' },
               { icon: '📊', title: 'Estimate & BOQ', desc: 'Detailed cost planning' }
             ].map((service, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="service-card" style={{
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '25px',
                 padding: '30px',
                 border: '1px solid rgba(255,255,255,0.1)',
                 textAlign: 'center',
-                transition: 'all 0.3s'
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                animation: `cardReveal 0.8s ease-out ${0.4 + idx * 0.1}s backwards`,
+                cursor: 'pointer'
               }}>
-                <div style={{ fontSize: '40px', marginBottom: '12px' }}>{service.icon}</div>
+                <div style={{ 
+                  fontSize: '40px', 
+                  marginBottom: '12px',
+                  animation: `iconFloat 3s ease-in-out infinite ${idx * 0.2}s`
+                }}>{service.icon}</div>
                 <h4 style={{ fontSize: '16px', fontWeight: '700', color: 'white', marginBottom: '8px' }}>
                   {service.title}
                 </h4>
@@ -448,7 +503,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Row 3 */}
+          {/* Row 3 - More Service Cards */}
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
@@ -461,15 +516,21 @@ export default function Home() {
               { icon: '🔥', title: 'Fire Safety', desc: 'Safety system design' },
               { icon: '🛋️', title: 'Interior Design', desc: 'Luxury space planning' }
             ].map((service, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="service-card" style={{
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '25px',
                 padding: '30px',
                 border: '1px solid rgba(255,255,255,0.1)',
                 textAlign: 'center',
-                transition: 'all 0.3s'
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                animation: `cardReveal 0.8s ease-out ${0.8 + idx * 0.1}s backwards`,
+                cursor: 'pointer'
               }}>
-                <div style={{ fontSize: '40px', marginBottom: '12px' }}>{service.icon}</div>
+                <div style={{ 
+                  fontSize: '40px', 
+                  marginBottom: '12px',
+                  animation: `iconFloat 3s ease-in-out infinite ${0.4 + idx * 0.2}s`
+                }}>{service.icon}</div>
                 <h4 style={{ fontSize: '16px', fontWeight: '700', color: 'white', marginBottom: '8px' }}>
                   {service.title}
                 </h4>
@@ -480,7 +541,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Row 4 */}
+          {/* Row 4 - Wide Cards */}
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
@@ -491,7 +552,7 @@ export default function Home() {
               { icon: '🥽', title: '3D Visualization & VR Walkthrough', desc: 'Experience your space before it\'s built' },
               { icon: '👷', title: 'Construction Supervision', desc: 'On-site quality control & management' }
             ].map((service, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="wide-card" style={{
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '25px',
                 padding: '35px',
@@ -499,22 +560,33 @@ export default function Home() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                transition: 'all 0.3s'
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                animation: `slideInLeft 0.8s ease-out ${1.2 + idx * 0.15}s backwards`,
+                cursor: 'pointer'
               }}>
                 <div>
-                  <h4 style={{ fontSize: '20px', fontWeight: '800', color: 'white', marginBottom: '8px' }}>
+                  <h4 style={{ 
+                    fontSize: '20px', 
+                    fontWeight: '800', 
+                    color: 'white', 
+                    marginBottom: '8px',
+                    animation: 'textGlow 3s ease-in-out infinite'
+                  }}>
                     {service.title}
                   </h4>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>
                     {service.desc}
                   </p>
                 </div>
-                <div style={{ fontSize: '50px' }}>{service.icon}</div>
+                <div style={{ 
+                  fontSize: '50px',
+                  animation: 'iconFloat 4s ease-in-out infinite'
+                }}>{service.icon}</div>
               </div>
             ))}
           </div>
 
-          {/* Row 5 */}
+          {/* Row 5 - Bottom Cards */}
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
@@ -525,7 +597,7 @@ export default function Home() {
               { icon: '🏢', title: 'Project Development', desc: 'End-to-end solutions' },
               { icon: '📋', title: 'Legal Documentation', desc: 'Complete paperwork support' }
             ].map((service, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="bottom-card" style={{
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '25px',
                 padding: '30px',
@@ -533,9 +605,14 @@ export default function Home() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '20px',
-                transition: 'all 0.3s'
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                animation: `fadeInUp 0.8s ease-out ${1.5 + idx * 0.15}s backwards`,
+                cursor: 'pointer'
               }}>
-                <div style={{ fontSize: '40px' }}>{service.icon}</div>
+                <div style={{ 
+                  fontSize: '40px',
+                  animation: `wiggle 2s ease-in-out infinite ${idx * 0.3}s`
+                }}>{service.icon}</div>
                 <div>
                   <h4 style={{ fontSize: '16px', fontWeight: '700', color: 'white', marginBottom: '5px' }}>
                     {service.title}
@@ -558,21 +635,31 @@ export default function Home() {
         zIndex: 1
       }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ marginBottom: '50px' }}>
+          <div style={{ 
+            marginBottom: '50px',
+            animation: 'fadeInUp 0.8s ease-out'
+          }}>
             <h2 style={{ 
               fontSize: '42px', 
               fontWeight: '900', 
               color: 'white', 
-              marginBottom: '10px'
+              marginBottom: '10px',
+              animation: 'fadeInUp 0.8s ease-out'
             }}>
               Featured <span style={{
                 background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                backgroundSize: '200% 100%',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                WebkitTextFillColor: 'transparent',
+                animation: 'gradientShift 4s ease-in-out infinite'
               }}>Projects</span>
             </h2>
-            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '16px' }}>
-              Defining Bangladesh's architectural landscape
+            <p style={{ 
+              color: 'rgba(255,255,255,0.5)', 
+              fontSize: '16px',
+              animation: 'fadeIn 1s ease-out 0.3s backwards'
+            }}>
+              Defining Bangladesh&apos;s architectural landscape
             </p>
           </div>
 
@@ -582,41 +669,14 @@ export default function Home() {
             gap: '25px'
           }}>
             {[
-              { 
-                name: 'Muktar Plaza', 
-                type: 'Luxury Residence', 
-                location: 'Rayerbag, Jatrabari',
-                size: '8,500 sqft',
-                year: '2023',
-                color: '#667eea'
-              },
-              { 
-                name: 'Badsha Villa', 
-                type: 'Residential Building', 
-                location: 'Kazlar par Jatrabari',
-                size: '3,000 sqft',
-                year: '2025',
-                color: '#f093fb'
-              },
-              { 
-                name: 'City Square', 
-                type: 'Residential & Commercial', 
-                location: 'Saddam Market, Matuail',
-                size: '6,500 sqft',
-                year: '2025',
-                color: '#4facfe'
-              },
-              { 
-                name: 'Khan Monzil', 
-                type: 'Minimalist Home', 
-                location: 'Fatullah, Narayangonj',
-                size: '4,500 sqft',
-                year: '2023',
-                color: '#43e97b'
-              }
+              { name: 'Muktar Plaza', type: 'Luxury Residence', location: 'Rayerbag, Jatrabari', size: '8,500 sqft', year: '2023', color: '#667eea' },
+              { name: 'Badsha Villa', type: 'Residential Building', location: 'Kazlar par Jatrabari', size: '3,000 sqft', year: '2025', color: '#f093fb' },
+              { name: 'City Square', type: 'Residential & Commercial', location: 'Saddam Market, Matuail', size: '6,500 sqft', year: '2025', color: '#4facfe' },
+              { name: 'Khan Monzil', type: 'Minimalist Home', location: 'Fatullah, Narayangonj', size: '4,500 sqft', year: '2023', color: '#43e97b' }
             ].map((project, idx) => (
               <div 
                 key={idx}
+                className="portfolio-card"
                 style={{
                   minHeight: '450px',
                   borderRadius: '20px',
@@ -624,10 +684,22 @@ export default function Home() {
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  transition: 'all 0.4s',
-                  border: `1px solid ${project.color}30`
+                  transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                  border: `1px solid ${project.color}30`,
+                  animation: `cardReveal 0.8s ease-out ${idx * 0.15}s backwards, cardGlow 4s ease-in-out infinite ${idx * 0.5}s`
                 }}>
                 
+                {/* Animated Background Gradient */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: `linear-gradient(45deg, transparent, ${project.color}15, transparent)`,
+                  animation: 'shimmer 3s ease-in-out infinite'
+                }}></div>
+
                 <div style={{
                   position: 'absolute',
                   bottom: 0,
@@ -644,13 +716,20 @@ export default function Home() {
                     backdropFilter: 'blur(10px)',
                     borderRadius: '20px',
                     marginBottom: '15px',
-                    border: `1px solid ${project.color}60`
+                    border: `1px solid ${project.color}60`,
+                    animation: 'pulseGlow 2s ease-in-out infinite'
                   }}>
                     <span style={{ color: project.color, fontSize: '12px', fontWeight: '600' }}>
                       {project.year}
                     </span>
                   </div>
-                  <h3 style={{ fontSize: '24px', fontWeight: '800', color: 'white', marginBottom: '10px' }}>
+                  <h3 style={{ 
+                    fontSize: '24px', 
+                    fontWeight: '800', 
+                    color: 'white', 
+                    marginBottom: '10px',
+                    animation: 'textGlow 3s ease-in-out infinite'
+                  }}>
                     {project.name}
                   </h3>
                   <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '14px', marginBottom: '5px' }}>
@@ -674,15 +753,32 @@ export default function Home() {
         zIndex: 1
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <div style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>
+          <div style={{ 
+            textAlign: 'center', 
+            marginBottom: '60px',
+            animation: 'fadeInUp 0.8s ease-out'
+          }}>
+            <div style={{ 
+              color: '#FFD700', 
+              fontSize: '14px', 
+              letterSpacing: '3px', 
+              marginBottom: '20px',
+              animation: 'fadeIn 1s ease-out, textGlow 3s ease-in-out infinite'
+            }}>
               TESTIMONIALS
             </div>
-            <h2 style={{ fontSize: '48px', fontWeight: '900', color: 'white' }}>
+            <h2 style={{ 
+              fontSize: '48px', 
+              fontWeight: '900', 
+              color: 'white',
+              animation: 'fadeInUp 1s ease-out 0.2s backwards'
+            }}>
               Client <span style={{
                 background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                backgroundSize: '200% 100%',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                WebkitTextFillColor: 'transparent',
+                animation: 'gradientShift 4s ease-in-out infinite'
               }}>Stories</span>
             </h2>
           </div>
@@ -693,32 +789,19 @@ export default function Home() {
             gap: '30px' 
           }}>
             {[
-              {
-                name: 'Ahmed Hassan',
-                role: 'CEO, Hassan Group',
-                text: 'INSAF transformed our vision into an architectural masterpiece. Their attention to detail and RAJUK expertise saved us months.',
-                rating: 5
-              },
-              {
-                name: 'Tahmina Rahman',
-                role: 'Homeowner',
-                text: 'From concept to completion, the team exceeded every expectation. Our dream home is now a reality thanks to their dedication.',
-                rating: 5
-              },
-              {
-                name: 'Rafiq Industries',
-                role: 'Commercial Developer',
-                text: '530+ projects speak volumes. They delivered our complex on time with zero RAJUK issues. Highly recommended!',
-                rating: 5
-              }
+              { name: 'Ahmed Hassan', role: 'CEO, Hassan Group', text: 'INSAF transformed our vision into an architectural masterpiece. Their attention to detail and RAJUK expertise saved us months.', rating: 5 },
+              { name: 'Tahmina Rahman', role: 'Homeowner', text: 'From concept to completion, the team exceeded every expectation. Our dream home is now a reality thanks to their dedication.', rating: 5 },
+              { name: 'Rafiq Industries', role: 'Commercial Developer', text: '530+ projects speak volumes. They delivered our complex on time with zero RAJUK issues. Highly recommended!', rating: 5 }
             ].map((testimonial, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="testimonial-card" style={{
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: '20px',
                 padding: '35px',
                 border: '1px solid rgba(255,255,255,0.1)',
                 position: 'relative',
-                transition: 'all 0.3s'
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                animation: `cardReveal 0.8s ease-out ${idx * 0.2}s backwards`,
+                cursor: 'pointer'
               }}>
                 <div style={{ 
                   fontSize: '40px', 
@@ -726,12 +809,17 @@ export default function Home() {
                   opacity: 0.3,
                   position: 'absolute',
                   top: '20px',
-                  right: '30px'
-                }}>"</div>
+                  right: '30px',
+                  animation: 'pulse 2s ease-in-out infinite'
+                }}>&ldquo;</div>
                 
                 <div style={{ marginBottom: '20px' }}>
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} style={{ color: '#FFD700', fontSize: '18px' }}>★</span>
+                    <span key={i} style={{ 
+                      color: '#FFD700', 
+                      fontSize: '18px',
+                      animation: `starTwinkle 1.5s ease-in-out infinite ${i * 0.15}s`
+                    }}>★</span>
                   ))}
                 </div>
 
@@ -742,11 +830,16 @@ export default function Home() {
                   marginBottom: '25px',
                   fontStyle: 'italic'
                 }}>
-                  "{testimonial.text}"
+                  &ldquo;{testimonial.text}&rdquo;
                 </p>
 
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
-                  <div style={{ fontSize: '16px', fontWeight: '700', color: 'white' }}>
+                  <div style={{ 
+                    fontSize: '16px', 
+                    fontWeight: '700', 
+                    color: 'white',
+                    animation: 'textGlow 3s ease-in-out infinite'
+                  }}>
                     {testimonial.name}
                   </div>
                   <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', marginTop: '3px' }}>
@@ -767,20 +860,38 @@ export default function Home() {
         zIndex: 1
       }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-            <div style={{ color: '#FFD700', fontSize: '14px', letterSpacing: '3px', marginBottom: '20px' }}>
+          <div style={{ 
+            textAlign: 'center', 
+            marginBottom: '80px',
+            animation: 'fadeInUp 0.8s ease-out'
+          }}>
+            <div style={{ 
+              color: '#FFD700', 
+              fontSize: '14px', 
+              letterSpacing: '3px', 
+              marginBottom: '20px',
+              animation: 'fadeIn 1s ease-out, textGlow 3s ease-in-out infinite'
+            }}>
               THE PROCESS
             </div>
-            <h2 style={{ fontSize: '48px', fontWeight: '900', color: 'white' }}>
+            <h2 style={{ 
+              fontSize: '48px', 
+              fontWeight: '900', 
+              color: 'white',
+              animation: 'fadeInUp 1s ease-out 0.2s backwards'
+            }}>
               From Vision to <span style={{
                 background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                backgroundSize: '200% 100%',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                WebkitTextFillColor: 'transparent',
+                animation: 'gradientShift 4s ease-in-out infinite'
               }}>Reality</span>
             </h2>
           </div>
 
           <div style={{ position: 'relative' }}>
+            {/* Animated Timeline Line */}
             <div style={{
               position: 'absolute',
               left: '50%',
@@ -789,7 +900,8 @@ export default function Home() {
               width: '3px',
               background: 'linear-gradient(to bottom, #FFD700, #FFA500)',
               transform: 'translateX(-50%)',
-              boxShadow: '0 0 20px rgba(255,215,0,0.5)'
+              boxShadow: '0 0 20px rgba(255,215,0,0.5)',
+              animation: 'timelineGlow 3s ease-in-out infinite'
             }}></div>
 
             {[
@@ -799,31 +911,40 @@ export default function Home() {
               { step: '04', title: 'RAJUK Submission', desc: 'Complete documentation and approval process', time: 'Month 3-6', color: '#43e97b' },
               { step: '05', title: 'Construction Support', desc: 'Site supervision and quality assurance', time: 'Ongoing', color: '#fa709a' }
             ].map((process, idx) => (
-              <div key={idx} style={{
+              <div key={idx} className="process-step" style={{
                 display: 'flex',
                 alignItems: 'center',
                 marginBottom: '60px',
                 justifyContent: idx % 2 === 0 ? 'flex-end' : 'flex-start',
                 paddingLeft: idx % 2 === 0 ? '0' : '52%',
-                paddingRight: idx % 2 === 0 ? '52%' : '0'
+                paddingRight: idx % 2 === 0 ? '52%' : '0',
+                animation: `${idx % 2 === 0 ? 'slideInRight' : 'slideInLeft'} 0.8s ease-out ${idx * 0.2}s backwards`
               }}>
-                <div style={{
+                <div className="process-card" style={{
                   background: 'rgba(255,255,255,0.03)',
                   borderRadius: '20px',
                   padding: '30px',
                   border: `2px solid ${process.color}40`,
                   position: 'relative',
                   textAlign: idx % 2 === 0 ? 'right' : 'left',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                  cursor: 'pointer'
                 }}>
                   <div style={{ 
                     color: process.color, 
                     fontSize: '24px', 
                     fontWeight: '900',
                     marginBottom: '10px',
-                    textShadow: `0 0 20px ${process.color}`
+                    textShadow: `0 0 20px ${process.color}`,
+                    animation: 'numberGlow 2s ease-in-out infinite'
                   }}>{process.step}</div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '700', color: 'white', marginBottom: '10px' }}>
+                  <h3 style={{ 
+                    fontSize: '20px', 
+                    fontWeight: '700', 
+                    color: 'white', 
+                    marginBottom: '10px',
+                    animation: 'textGlow 3s ease-in-out infinite'
+                  }}>
                     {process.title}
                   </h3>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginBottom: '10px' }}>
@@ -836,11 +957,13 @@ export default function Home() {
                     backgroundColor: `${process.color}20`,
                     borderRadius: '15px',
                     display: 'inline-block',
-                    border: `1px solid ${process.color}40`
+                    border: `1px solid ${process.color}40`,
+                    animation: 'pulseGlow 2s ease-in-out infinite'
                   }}>
                     {process.time}
                   </span>
                   
+                  {/* Animated Connector Dot */}
                   <div style={{
                     position: 'absolute',
                     [idx % 2 === 0 ? 'right' : 'left']: '-60px',
@@ -850,7 +973,8 @@ export default function Home() {
                     height: '24px',
                     background: `linear-gradient(135deg, ${process.color}, ${process.color}cc)`,
                     borderRadius: '50%',
-                    boxShadow: `0 0 30px ${process.color}`
+                    boxShadow: `0 0 30px ${process.color}`,
+                    animation: 'dotPulse 2s ease-in-out infinite'
                   }}></div>
                 </div>
               </div>
@@ -870,6 +994,7 @@ export default function Home() {
         padding: '60px 5%',
         zIndex: 1
       }}>
+        {/* Animated Rings */}
         {[700, 600, 500].map((size, idx) => (
           <div key={idx} style={{
             position: 'absolute',
@@ -893,7 +1018,10 @@ export default function Home() {
           padding: '0 5%'
         }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '30px' }}>
+            <div style={{ 
+              marginBottom: '30px',
+              animation: 'fadeInDown 0.8s ease-out'
+            }}>
               <span style={{
                 padding: '10px 25px',
                 backgroundColor: 'rgba(255,215,0,0.1)',
@@ -902,7 +1030,8 @@ export default function Home() {
                 color: '#FFD700',
                 fontSize: '13px',
                 letterSpacing: '2px',
-                fontWeight: '600'
+                fontWeight: '600',
+                animation: 'pulseGlow 2s ease-in-out infinite, badgeGlow 3s ease-in-out infinite'
               }}>
                 LIMITED SLOTS AVAILABLE
               </span>
@@ -913,7 +1042,8 @@ export default function Home() {
               fontWeight: '900', 
               color: 'white',
               marginBottom: '25px',
-              lineHeight: '1.1'
+              lineHeight: '1.1',
+              animation: 'fadeInUp 1s ease-out 0.2s backwards'
             }}>
               Ready to Build Your<br/>
               <span style={{ 
@@ -930,7 +1060,8 @@ export default function Home() {
               color: 'rgba(255,255,255,0.6)',
               marginBottom: '50px',
               maxWidth: '600px',
-              margin: '0 auto 50px'
+              margin: '0 auto 50px',
+              animation: 'fadeInUp 1.2s ease-out 0.4s backwards'
             }}>
               Join 530+ satisfied clients who trusted us with their vision. 
               Free consultation for the first 10 inquiries this month.
@@ -940,10 +1071,11 @@ export default function Home() {
               display: 'flex', 
               gap: '20px', 
               justifyContent: 'center', 
-              flexWrap: 'wrap'
+              flexWrap: 'wrap',
+              animation: 'fadeInUp 1.4s ease-out 0.6s backwards'
             }}>
               <Link href="/contact" style={{ textDecoration: 'none' }}>
-                <button style={{
+                <button className="cta-main-btn" style={{
                   padding: '20px 50px',
                   background: 'linear-gradient(135deg, #FFD700, #FFA500)',
                   border: 'none',
@@ -959,7 +1091,8 @@ export default function Home() {
                   gap: '10px',
                   transition: 'all 0.3s',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  animation: 'buttonGlow 3s ease-in-out infinite'
                 }}>
                   <div style={{
                     position: 'absolute',
@@ -975,7 +1108,7 @@ export default function Home() {
                 </button>
               </Link>
 
-              <a href="https://wa.me/8801958140774" style={{
+              <a href="https://wa.me/8801958140774" className="whatsapp-btn" style={{
                 padding: '20px 40px',
                 background: '#25D366',
                 border: 'none',
@@ -989,7 +1122,8 @@ export default function Home() {
                 alignItems: 'center',
                 gap: '10px',
                 boxShadow: '0 20px 50px rgba(37,211,102,0.3)',
-                transition: 'all 0.3s'
+                transition: 'all 0.3s',
+                animation: 'pulse 2s ease-in-out infinite'
               }}>
                 <span style={{ fontSize: '20px' }}>💬</span>
                 WHATSAPP NOW
@@ -999,19 +1133,20 @@ export default function Home() {
             <div style={{ 
               marginTop: '50px', 
               color: 'rgba(255,255,255,0.4)', 
-              fontSize: '14px'
+              fontSize: '14px',
+              animation: 'fadeIn 1.6s ease-out 0.8s backwards'
             }}>
-              <span style={{ color: '#FFD700' }}>✓</span> No obligation consultation 
+              <span style={{ color: '#FFD700', animation: 'starTwinkle 1.5s ease-in-out infinite' }}>✓</span> No obligation consultation 
               <span style={{ margin: '0 20px' }}>•</span>
-              <span style={{ color: '#FFD700' }}>✓</span> 100% RAJUK success rate
+              <span style={{ color: '#FFD700', animation: 'starTwinkle 1.5s ease-in-out infinite 0.3s' }}>✓</span> 100% RAJUK success rate
               <span style={{ margin: '0 20px' }}>•</span>
-              <span style={{ color: '#FFD700' }}>✓</span> In-house engineers
+              <span style={{ color: '#FFD700', animation: 'starTwinkle 1.5s ease-in-out infinite 0.6s' }}>✓</span> In-house engineers
             </div>
           </div>
         </div>
       </section>
 
-      {/* ========== ALL ANIMATIONS ========== */}
+      {/* ========== ALL ANIMATIONS CSS ========== */}
       <style jsx>{`
         * {
           margin: 0;
@@ -1023,17 +1158,56 @@ export default function Home() {
           overflow-x: hidden !important;
         }
 
-        .cta-btn-primary:hover {
-          transform: translateY(-3px) scale(1.05);
-          box-shadow: 0 30px 60px rgba(255,215,0,0.5);
+        /* ===== HOVER EFFECTS ===== */
+        .cta-btn-primary:hover,
+        .cta-main-btn:hover {
+          transform: translateY(-5px) scale(1.08) !important;
+          box-shadow: 0 35px 70px rgba(255,215,0,0.6) !important;
         }
 
-        button:hover {
+        .btn-secondary:hover {
           transform: translateY(-3px);
-          border-color: rgba(255,215,0,0.5);
-          background: rgba(255,215,0,0.1);
+          border-color: rgba(255,215,0,0.6) !important;
+          background: rgba(255,215,0,0.15) !important;
+          box-shadow: 0 20px 40px rgba(255,215,0,0.3);
         }
 
+        .whatsapp-btn:hover {
+          transform: translateY(-5px) scale(1.05) !important;
+          box-shadow: 0 30px 60px rgba(37,211,102,0.5) !important;
+        }
+
+        .expertise-card:hover,
+        .service-card:hover,
+        .testimonial-card:hover {
+          transform: translateY(-15px) scale(1.03) !important;
+          box-shadow: 0 40px 80px rgba(255,215,0,0.3) !important;
+          border-color: rgba(255,215,0,0.5) !important;
+        }
+
+        .wide-card:hover {
+          transform: translateX(10px) !important;
+          box-shadow: 0 30px 60px rgba(255,215,0,0.25) !important;
+          border-color: rgba(255,215,0,0.4) !important;
+        }
+
+        .bottom-card:hover {
+          transform: translateX(15px) scale(1.02) !important;
+          background: rgba(255,215,0,0.05) !important;
+          border-color: rgba(255,215,0,0.4) !important;
+        }
+
+        .portfolio-card:hover {
+          transform: translateY(-20px) scale(1.05) !important;
+          box-shadow: 0 50px 100px rgba(255,215,0,0.4) !important;
+        }
+
+        .process-card:hover {
+          transform: scale(1.08) !important;
+          background: rgba(255,215,0,0.05) !important;
+        }
+
+        /* ===== KEYFRAME ANIMATIONS ===== */
         @keyframes floatOrb {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(60px, -60px) scale(1.1); }
@@ -1041,14 +1215,13 @@ export default function Home() {
         }
 
         @keyframes pulseDot {
-          0%, 100% { 
-            transform: scale(1); 
-            box-shadow: 0 0 0 0 rgba(255,215,0,0.7);
-          }
-          50% { 
-            transform: scale(1.3); 
-            box-shadow: 0 0 0 15px rgba(255,215,0,0);
-          }
+          0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0.7); }
+          50% { transform: scale(1.3); box-shadow: 0 0 0 15px rgba(255,215,0,0); }
+        }
+
+        @keyframes badgeGlow {
+          0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+          50% { box-shadow: 0 0 40px rgba(255,215,0,0.5), 0 0 60px rgba(255,215,0,0.3); }
         }
 
         @keyframes gradientShift {
@@ -1060,6 +1233,11 @@ export default function Home() {
         @keyframes strokeGlow {
           0%, 100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.5)); }
           50% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.8)); }
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         @keyframes fadeInUp {
@@ -1077,9 +1255,15 @@ export default function Home() {
           to { opacity: 1; transform: translateX(0); }
         }
 
+        @keyframes fadeInRight {
+          from { opacity: 0; transform: translateX(60px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
         @keyframes statPop {
-          from { opacity: 0; transform: scale(0.5); }
-          to { opacity: 1; transform: scale(1); }
+          0% { opacity: 0; transform: scale(0.3); }
+          50% { transform: scale(1.15); }
+          100% { opacity: 1; transform: scale(1); }
         }
 
         @keyframes cardFloat1 {
@@ -1098,19 +1282,13 @@ export default function Home() {
         }
 
         @keyframes numberGlow {
-          0%, 100% { text-shadow: 0 0 20px currentColor; }
-          50% { text-shadow: 0 0 40px currentColor, 0 0 60px currentColor; }
+          0%, 100% { text-shadow: 0 0 20px currentColor; transform: scale(1); }
+          50% { text-shadow: 0 0 40px currentColor, 0 0 60px currentColor; transform: scale(1.05); }
         }
 
         @keyframes sparkle {
-          0%, 100% { 
-            opacity: 0; 
-            transform: scale(0) rotate(0deg);
-          }
-          50% { 
-            opacity: 1; 
-            transform: scale(1) rotate(180deg);
-          }
+          0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+          50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
         }
 
         @keyframes btnShine {
@@ -1119,17 +1297,104 @@ export default function Home() {
         }
 
         @keyframes ringsPulse {
-          0% {
-            transform: translate(-50%, -50%) scale(0.8);
-            opacity: 0;
-          }
+          0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
           50% { opacity: 0.4; }
-          100% {
-            transform: translate(-50%, -50%) scale(1.4);
-            opacity: 0;
-          }
+          100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
         }
 
+        @keyframes cardReveal {
+          from { opacity: 0; transform: translateY(60px) scale(0.95); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes iconBounce {
+          0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+          40% { transform: translateY(-15px); }
+          60% { transform: translateY(-8px); }
+        }
+
+        @keyframes iconFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes wiggle {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(5deg); }
+          75% { transform: rotate(-5deg); }
+        }
+
+        @keyframes textGlow {
+          0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+          50% { text-shadow: 0 0 25px rgba(255,255,255,0.5); }
+        }
+
+        @keyframes borderGlow {
+          0%, 100% { border-color: rgba(255,215,0,0.3); box-shadow: 0 0 20px rgba(255,215,0,0.1); }
+          50% { border-color: rgba(255,215,0,0.6); box-shadow: 0 0 40px rgba(255,215,0,0.3); }
+        }
+
+        @keyframes pulseGlow {
+          0%, 100% { box-shadow: 0 0 15px rgba(255,215,0,0.3); }
+          50% { box-shadow: 0 0 30px rgba(255,215,0,0.6); }
+        }
+
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+
+        @keyframes cardGlow {
+          0%, 100% { box-shadow: 0 20px 50px rgba(255,215,0,0.1); }
+          50% { box-shadow: 0 25px 60px rgba(255,215,0,0.25); }
+        }
+
+        @keyframes starTwinkle {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+
+        @keyframes dotPulse {
+          0%, 100% { transform: translateY(-50%) scale(1); box-shadow: 0 0 20px currentColor; }
+          50% { transform: translateY(-50%) scale(1.3); box-shadow: 0 0 40px currentColor; }
+        }
+
+        @keyframes timelineGlow {
+          0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+          50% { box-shadow: 0 0 40px rgba(255,215,0,0.8), 0 0 60px rgba(255,215,0,0.4); }
+        }
+
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-100px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(100px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes buttonGlow {
+          0%, 100% { box-shadow: 0 30px 60px rgba(255,215,0,0.4); }
+          50% { box-shadow: 0 35px 70px rgba(255,215,0,0.6); }
+        }
+
+        @keyframes borderPulse {
+          0%, 100% { border-color: rgba(255,255,255,0.2); }
+          50% { border-color: rgba(255,215,0,0.4); }
+        }
+
+        @keyframes textReveal {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
           .hero-grid {
             grid-template-columns: 1fr !important;

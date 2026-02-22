@@ -31,6 +31,7 @@ export default function Header() {
     { name: 'EXPERTS', href: '/experts' },
     { name: 'PORTFOLIO', href: '/portfolio' },
     { name: 'BLOG', href: '/blog' },
+    { name: 'PRICES', href: '/prices' },
   ]
 
   const orbPositions = [
@@ -154,7 +155,7 @@ export default function Header() {
           </Link>
 
           {/* DESKTOP MENU */}
-          <div className="desktop-menu" style={{ display: 'flex', gap: '30px', fontSize: '13px', fontWeight: '600', letterSpacing: '1px' }}>
+          <div className="desktop-menu" style={{ display: 'flex', gap: '25px', fontSize: '12px', fontWeight: '600', letterSpacing: '1px' }}>
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} style={{ color: pathname === link.href ? '#FFD700' : 'rgba(255,255,255,0.7)', textDecoration: 'none', transition: 'all 0.3s ease', position: 'relative', padding: '8px 0' }} className="nav-link">
                 {link.name}
@@ -197,7 +198,7 @@ export default function Header() {
           ))}
 
           <Link href="/contact" onClick={() => setIsMenuOpen(false)} style={{ display: 'block', textAlign: 'center' }}>
-            <button style={{ marginTop: '30px', padding: '18px 45px', background: 'linear-gradient(135deg, #FFD700, #FFA500)', border: 'none', borderRadius: '35px', color: '#0A0A0A', fontWeight: '700', fontSize: '16px', letterSpacing: '2px', cursor: 'pointer', boxShadow: '0 15px 40px rgba(255,215,0,0.4)', transform: isMenuOpen ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.9)', opacity: isMenuOpen ? 1 : 0, transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s', position: 'relative', overflow: 'hidden'}} className="mobile-cta">
+            <button style={{ marginTop: '30px', padding: '18px 45px', background: 'linear-gradient(135deg, #FFD700, #FFA500)', border: 'none', borderRadius: '35px', color: '#0A0A0A', fontWeight: '700', fontSize: '16px', letterSpacing: '2px', cursor: 'pointer', boxShadow: '0 15px 40px rgba(255,215,0,0.4)', transform: isMenuOpen ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.9)', opacity: isMenuOpen ? 1 : 0, transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.7s', position: 'relative', overflow: 'hidden'}} className="mobile-cta">
               <div style={{ position: 'absolute', top: 0, left: '-100%', width: '100%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)', animation: isMenuOpen ? 'shine 2s ease-in-out infinite' : 'none'}}></div>
               <span style={{ position: 'relative', zIndex: 1 }}>START PROJECT →</span>
             </button>
